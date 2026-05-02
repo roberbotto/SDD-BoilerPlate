@@ -1,6 +1,6 @@
 ---
-description: Frontend development standards, best practices, and conventions for the LTI React application including component patterns, state management, UI/UX guidelines, and testing practices
-globs: ["frontend/src/**/*.{js,jsx,ts,tsx}", "frontend/cypress/**/*.{ts,js}", "frontend/tsconfig.json", "frontend/cypress.config.ts", "frontend/package.json"]
+description: Template for repository-specific frontend standards. Use this file for structure only and replace every placeholder with stack-specific conventions discovered from the project or provided by the user.
+globs: ["frontend/**/*", "client/**/*", "web/**/*", "app/**/*", "src/**/*"]
 alwaysApply: true
 ---
 
@@ -22,16 +22,16 @@ alwaysApply: true
   - [State Management](#state-management)
   - [Service Layer Architecture](#service-layer-architecture)
 - [UI/UX Standards](#uiux-standards)
-  - [Bootstrap Integration](#bootstrap-integration)
+  - [Design System Integration](#design-system-integration)
   - [Form Handling](#form-handling)
   - [Navigation Patterns](#navigation-patterns)
   - [Accessibility](#accessibility)
 - [Testing Standards](#testing-standards)
-  - [End-to-End Testing with Cypress](#end-to-end-testing-with-cypress)
+  - [End-to-End Testing](#end-to-end-testing)
   - [Test Organization](#test-organization)
 - [Configuration Standards](#configuration-standards)
   - [TypeScript Configuration](#typescript-configuration)
-  - [ESLint Configuration](#eslint-configuration)
+  - [Linting and Formatting](#linting-and-formatting)
   - [Environment Configuration](#environment-configuration)
 - [Performance Best Practices](#performance-best-practices)
   - [Component Optimization](#component-optimization)
@@ -42,490 +42,144 @@ alwaysApply: true
   - [Development Scripts](#development-scripts)
   - [Code Quality](#code-quality)
 - [Migration Strategy](#migration-strategy)
-  - [TypeScript Migration](#typescript-migration)
-  - [Component Modernization](#component-modernization)
+  - [Incremental Modernization](#incremental-modernization)
+  - [Deprecation Rules](#deprecation-rules)
 
 ---
 
 ## Overview
 
-This document outlines the best practices, conventions, and standards used in the LTI frontend application. These practices ensure code consistency, maintainability, and optimal development experience.
+[Describe the frontend scope, supported surfaces, and the quality goals that these standards protect.]
 
 ## Technology Stack
 
 ### Core Technologies
-- **React 18.3.1**: Modern React with functional components and hooks
-- **TypeScript 4.9.5**: For type safety and better development experience
-- **Create React App 5.0.1**: Build tooling and development server
-- **React Router DOM 6.23.1**: Client-side routing and navigation
+- **Framework**: [e.g. React, Vue, Angular, Svelte, Next.js]
+- **Language**: [e.g. TypeScript, JavaScript]
+- **Build Tooling**: [e.g. Vite, Next.js, Webpack, Nuxt]
+- **Package Management**: [e.g. pnpm, npm, yarn]
 
 ### UI Framework
-- **Bootstrap 5.3.3**: CSS framework for responsive design
-- **React Bootstrap 2.10.2**: Bootstrap components for React
-- **React Bootstrap Icons 1.11.4**: Icon library
-- **React DatePicker 6.9.0**: Date input components
+- **Styling Strategy**: [e.g. CSS Modules, Tailwind, Sass, vanilla-extract]
+- **Component Library**: [e.g. custom design system, MUI, Chakra, Radix]
+- **Iconography**: [e.g. lucide, heroicons, custom icons]
 
 ### State Management & Data Flow
-- **React Hooks**: useState, useEffect for local state management
-- **React Beautiful DND 13.1.1**: Drag and drop functionality
-- **Axios**: HTTP client for API communication
+- **Local State**: [Hooks, signals, stores, component state]
+- **Server State**: [e.g. TanStack Query, SWR, custom fetch layer]
+- **Cross-Page State**: [e.g. Redux, Zustand, Pinia, Context]
 
 ### Testing Framework
-- **Cypress 14.4.1**: End-to-end testing
-- **Jest**: Unit testing (via Create React App)
-- **React Testing Library**: Component testing utilities
+- **Unit / Component Testing**: [Tooling]
+- **E2E Testing**: [Tooling]
+- **Accessibility Testing**: [Tooling or policy]
 
 ### Development Tools
-- **ESLint**: Code linting with React-specific rules
-- **TypeScript**: Static type checking
-- **Web Vitals**: Performance monitoring
+- **Linting**: [Tooling]
+- **Formatting**: [Tooling]
+- **Type Checking**: [Tooling]
+- **Design / Storybook Tooling**: [Tooling if used]
 
 ## Project Structure
 
-```
-frontend/
-├── public/                 # Static assets
-├── src/
-│   ├── components/        # Reusable UI components
-│   ├── services/         # API service layer
-│   ├── pages/           # Page components (future organization)
-│   ├── assets/          # Images, fonts, static resources
-│   ├── App.js           # Main application component
-│   ├── index.tsx        # Application entry point
-│   └── index.css        # Global styles
-├── cypress/
-│   └── e2e/            # End-to-end test files
-├── package.json         # Dependencies and scripts
-├── tsconfig.json       # TypeScript configuration
-└── cypress.config.ts   # Cypress configuration
+```text
+[Replace with the real frontend folder structure of this project]
 ```
 
 ## Coding Standards
 
-### Naming Conventions
+### Language and Naming Conventions
 
-- **Component Naming**: Use PascalCase for React components (e.g., `CandidateCard`, `PositionDetails`, `RecruiterDashboard`)
-- **Variable Naming**: Use camelCase for variables and functions (e.g., `candidateId`, `handleSubmit`, `fetchPositions`)
-- **Constants Naming**: Use UPPER_SNAKE_CASE for constants (e.g., `MAX_CANDIDATES_PER_PAGE`, `API_BASE_URL`)
-- **Type/Interface Naming**: Use PascalCase for types and interfaces (e.g., `CandidateData`, `PositionProps`, `ICandidateService`)
-- **File Naming**: Use PascalCase for component files (e.g., `CandidateCard.tsx`, `PositionDetails.tsx`) and camelCase for utility files (e.g., `candidateService.js`, `apiUtils.ts`)
-- **CSS Class Naming**: Use kebab-case for CSS classes (e.g., `candidate-card`, `position-details`)
-- **Hook Naming**: Use camelCase starting with "use" prefix (e.g., `useCandidate`, `usePositionData`, `useFormValidation`)
-
-**Examples:**
-
-```typescript
-// Good: All in English
-import React, { useState, useEffect } from 'react';
-
-type CandidateCardProps = {
-    candidate: Candidate;
-    index: number;
-    onClick: (candidate: Candidate) => void;
-};
-
-const CandidateCard: React.FC<CandidateCardProps> = ({ candidate, index, onClick }) => {
-    const [isLoading, setIsLoading] = useState(false);
-    
-    // Handle candidate card click event
-    const handleCardClick = () => {
-        onClick(candidate);
-    };
-    
-    return (
-        <div className="candidate-card" onClick={handleCardClick}>
-            {/* Component JSX */}
-        </div>
-    );
-};
-
-// Avoid: Non-English comments or names
-const TarjetaCandidato: React.FC<PropsTarjetaCandidato> = ({ candidato, indice, alHacerClic }) => {
-    const [estaCargando, setEstaCargando] = useState(false);
-    
-    // Manejar evento de clic en la tarjeta de candidato
-    const manejarClicTarjeta = () => {
-        alHacerClic(candidato);
-    };
-    
-    return (
-        <div className="tarjeta-candidato" onClick={manejarClicTarjeta}>
-            {/* JSX del componente */}
-        </div>
-    );
-};
-```
-
-**Error Messages and Console Logs:**
-
-```typescript
-// Good: English error messages
-catch (error) {
-    console.error('Failed to fetch candidates:', error);
-    setError('Unable to load candidates. Please try again later.');
-}
-
-// Avoid: Non-English messages
-catch (error) {
-    console.error('Error al obtener candidatos:', error);
-    setError('No se pudieron cargar los candidatos. Por favor, inténtelo de nuevo más tarde.');
-}
-```
-
-**Service Layer Examples:**
-
-```typescript
-// Good: English naming in services
-export const candidateService = {
-    getAllCandidates: async () => {
-        try {
-            const response = await axios.get(`${API_BASE_URL}/candidates`);
-            return response.data;
-        } catch (error) {
-            console.error('Error fetching candidates:', error);
-            throw error;
-        }
-    }
-};
-
-// Avoid: Non-English naming
-export const servicioCandidatos = {
-    obtenerTodosLosCandidatos: async () => {
-        try {
-            const respuesta = await axios.get(`${API_BASE_URL}/candidates`);
-            return respuesta.data;
-        } catch (error) {
-            console.error('Error al obtener candidatos:', error);
-            throw error;
-        }
-    }
-};
-```
+[Document naming patterns, file suffixes, folder conventions, and comment language rules.]
 
 ### Component Conventions
 
-#### Functional Components
-- **Always use functional components** with hooks instead of class components
-- Use **TypeScript for new components** when possible
-- Keep **JavaScript for legacy components** until migration
-
-```typescript
-// Preferred - TypeScript functional component
-import React, { useState, useEffect } from 'react';
-
-type Position = {
-    id: number;
-    title: string;
-    status: 'Open' | 'Contratado' | 'Cerrado' | 'Borrador';
-};
-
-const Positions: React.FC = () => {
-    const [positions, setPositions] = useState<Position[]>([]);
-    // Component logic
-};
-```
-
-#### Component Props
-- **Define TypeScript interfaces** for component props when using TypeScript
-- Use **destructuring** for props
-- Include **default values** where appropriate
-
-```typescript
-type CandidateCardProps = {
-    candidate: Candidate;
-    index: number;
-    onClick: (candidate: Candidate) => void;
-};
-
-const CandidateCard: React.FC<CandidateCardProps> = ({ candidate, index, onClick }) => {
-    // Component implementation
-};
-```
+[Document component boundaries, composition rules, prop design, and co-location patterns.]
 
 ### State Management
 
-#### Local State with Hooks
-- Use **useState** for component-level state
-- Use **useEffect** for side effects and data fetching
-- **Extract custom hooks** for reusable stateful logic
-
-```javascript
-const [formData, setFormData] = useState({
-    title: '',
-    description: '',
-    status: 'Borrador'
-});
-
-const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-        ...prev,
-        [name]: value
-    }));
-};
-```
-
-#### Loading and Error States
-- **Always handle loading states** for async operations
-- **Implement error handling** with user-friendly messages
-- **Use React Bootstrap Alert** components for feedback
-
-```javascript
-const [loading, setLoading] = useState(true);
-const [error, setError] = useState('');
-const [success, setSuccess] = useState('');
-
-// In async function
-try {
-    setLoading(true);
-    const data = await apiCall();
-    setSuccess('Operation completed successfully');
-} catch (error) {
-    setError('Error message: ' + error.message);
-} finally {
-    setLoading(false);
-}
-```
+[Document where state should live, when to lift it, and how async state is coordinated.]
 
 ### Service Layer Architecture
 
-#### API Services
-- **Centralize API calls** in service files
-- Use **axios** for HTTP requests
-- **Export service objects** with grouped methods
-- **Handle errors at service level** when appropriate
-
-```javascript
-import axios from 'axios';
-
-const API_BASE_URL = 'http://localhost:3010';
-
-export const positionService = {
-    getAllPositions: async () => {
-        try {
-            const response = await axios.get(`${API_BASE_URL}/positions`);
-            return response.data;
-        } catch (error) {
-            console.error('Error fetching positions:', error);
-            throw error;
-        }
-    },
-    
-    updatePosition: async (id, positionData) => {
-        try {
-            const response = await axios.put(`${API_BASE_URL}/positions/${id}`, positionData);
-            return response.data;
-        } catch (error) {
-            console.error('Error updating position:', error);
-            throw error;
-        }
-    }
-};
-```
+[Document how API clients, adapters, mappers, and domain-specific frontend services are organized.]
 
 ## UI/UX Standards
 
-### Bootstrap Integration
-- Use **React Bootstrap components** instead of plain Bootstrap
-- **Import Bootstrap CSS** in the main App component
-- Follow **Bootstrap responsive grid system** (Container, Row, Col)
+### Design System Integration
 
-```javascript
-import { Container, Row, Col, Card, Button, Form, Alert } from 'react-bootstrap';
-```
+[Document how the design system, tokens, component library, or visual language should be used.]
 
 ### Form Handling
-- Use **controlled components** for form inputs
-- Implement **real-time validation** where appropriate
-- **Disable submit buttons** during form submission
-- **Clear form state** after successful submission
 
-```javascript
-<Form onSubmit={handleSubmit}>
-    <Form.Group className="mb-3">
-        <Form.Label>Title *</Form.Label>
-        <Form.Control
-            type="text"
-            name="title"
-            value={formData.title}
-            onChange={handleInputChange}
-            required
-        />
-    </Form.Group>
-    <Button type="submit" disabled={saving}>
-        {saving ? 'Saving...' : 'Save'}
-    </Button>
-</Form>
-```
+[Document validation timing, error presentation, submission states, and field abstraction rules.]
 
 ### Navigation Patterns
-- Use **React Router** for all navigation
-- **Implement breadcrumbs** with back navigation
-- Use **programmatic navigation** with useNavigate hook
 
-```javascript
-import { useNavigate } from 'react-router-dom';
-
-const navigate = useNavigate();
-
-// Navigation examples
-<Button variant="link" onClick={() => navigate('/')}>
-    ← Back to Dashboard
-</Button>
-```
+[Document routing, layout ownership, breadcrumbs, guarded routes, and URL-state conventions.]
 
 ### Accessibility
-- Include **aria-label** attributes for interactive elements
-- Use **semantic HTML** elements
-- Ensure **keyboard navigation** support
-- Provide **alternative text** for images
 
-```javascript
-<Form.Control 
-    type="text" 
-    placeholder="Search by title" 
-    aria-label="Search positions by title"
-/>
-```
+[Document keyboard support, semantic HTML, color contrast, ARIA usage, focus handling, and screen-reader expectations.]
 
 ## Testing Standards
 
-### End-to-End Testing with Cypress
-- **Test user workflows** rather than implementation details
-- Use **data-testid** attributes for reliable element selection
-- **Organize tests by feature** (candidates.cy.ts, positions.cy.ts)
-- **Include API testing** alongside UI testing
+### End-to-End Testing
 
-```typescript
-describe('Positions API - Update', () => {
-    beforeEach(() => {
-        cy.window().then((win) => {
-            win.localStorage.clear();
-        });
-    });
-
-    it('should update a position successfully', () => {
-        const updateData = {
-            title: 'Updated Test Position',
-            status: 'Open'
-        };
-
-        cy.request({
-            method: 'PUT',
-            url: `${API_URL}/positions/${testPositionId}`,
-            body: updateData
-        }).then((response) => {
-            expect(response.status).to.eq(200);
-            expect(response.body.data.title).to.eq(updateData.title);
-        });
-    });
-});
-```
+[Document what critical journeys require E2E coverage and how test environments are managed.]
 
 ### Test Organization
-- **Group related tests** with describe blocks
-- **Use descriptive test names** that explain the expected behavior
-- **Test both success and error scenarios**
-- **Include edge cases** and validation testing
+
+[Document where tests live, naming patterns, fixtures, and test-data ownership.]
 
 ## Configuration Standards
 
 ### TypeScript Configuration
-- Enable **strict mode** for type checking
-- Use **path mapping** with "@/*" for cleaner imports
-- Include **both Cypress and Node types**
-- Configure **ES5 target** for broader compatibility
 
-```json
-{
-    "compilerOptions": {
-        "strict": true,
-        "baseUrl": ".",
-        "paths": {
-            "@/*": ["src/*"]
-        },
-        "types": ["cypress", "node"]
-    }
-}
-```
+[If TypeScript is not used, repurpose this heading to the actual compile-time safety configuration.]
 
-### ESLint Configuration
-- Extend **React App** configuration
-- Include **Jest rules** for testing
-- **Automatic code formatting** and error detection
-- **Consistent code style** across the project
+### Linting and Formatting
+
+[Document lint, format, and autofix rules.]
 
 ### Environment Configuration
-- Use **environment variables** for API URLs
-- **Separate configurations** for development and production
-- **Configure Cypress** with environment-specific settings
 
-```javascript
-// cypress.config.ts
-export default defineConfig({
-    e2e: {
-        baseUrl: 'http://localhost:3000',
-        env: {
-            API_URL: 'http://localhost:3010'
-        }
-    }
-});
-```
+[Document environment variables, runtime config, feature flags, and secrets boundaries.]
 
 ## Performance Best Practices
 
 ### Component Optimization
-- **Lazy load** components when appropriate
-- **Memoize expensive calculations** with useMemo
-- **Avoid unnecessary re-renders** with useCallback
-- **Extract reusable logic** into custom hooks
+
+[Document rendering boundaries, state granularity, memoization policy, and expensive UI patterns.]
 
 ### Bundle Optimization
-- **Tree shaking** enabled through Create React App
-- **Code splitting** at route level
-- **Optimize images** and static assets
-- **Monitor bundle size** with build tools
+
+[Document code splitting, lazy loading, asset budgets, and third-party dependency policy.]
 
 ### API Efficiency
-- **Implement proper error handling** for network requests
-- **Cache API responses** where appropriate
-- **Use loading states** to improve perceived performance
-- **Batch API calls** when possible
+
+[Document request deduplication, caching, pagination, optimistic updates, and batching rules.]
 
 ## Development Workflow
 
-- **Feature Branches**: Develop features in separate branches, adding descriptive suffix "-frontend" to allow working in parallel and avoid conflicts or collisions
-- **Descriptive Commits**: Write descriptive commit messages in English
-- **Code Review**: Code review before merging
-- **Small Branches**: Keep branches small and focused
+### Git Workflow
+
+[Document branching, review, release, and preview-environment expectations.]
 
 ### Development Scripts
-```bash
-npm start          # Development server
-npm test           # Run unit tests
-npm run build      # Production build
-npm run cypress:open    # Open Cypress test runner
-npm run cypress:run     # Run Cypress tests headlessly
-```
+
+[List the frontend commands developers should use locally and in CI.]
 
 ### Code Quality
-- **ESLint validation** before commits
-- **TypeScript compilation** without errors
-- **All tests passing** before deployment
-- **Performance monitoring** with Web Vitals
+
+[Document lint, typecheck, test, visual review, and accessibility gates.]
 
 ## Migration Strategy
 
-### TypeScript Migration
-- **Gradual migration** from JavaScript to TypeScript
-- **New components in TypeScript** by default
-- **Maintain existing JavaScript** components until planned refactor
-- **Add types incrementally** to existing code
+### Incremental Modernization
 
-### Component Modernization
-- **Functional components** over class components
-- **Hooks** instead of lifecycle methods
-- **React Bootstrap** components for consistency
-- **Responsive design** principles throughout
+[Document how legacy patterns are replaced over time without destabilizing the product.]
 
-This document serves as the foundation for maintaining code quality and consistency across the LTI frontend application. All team members should follow these practices to ensure a maintainable and scalable codebase.
+### Deprecation Rules
+
+[Document how components, routes, styles, and APIs are deprecated and removed.]

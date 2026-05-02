@@ -1,0 +1,17 @@
+{
+  "name": "sdd-governance-repo",
+  "plugins": [
+    {
+      "name": "codex-sdd-governance",
+      "source": {
+        "source": "local",
+        "path": "./plugins/codex-sdd-governance"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

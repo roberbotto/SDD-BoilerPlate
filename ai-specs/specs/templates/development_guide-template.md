@@ -1,153 +1,138 @@
 # Development Guide
 
-This guide provides step-by-step instructions for setting up the development environment and running tests for the LTI ATS system.
+This guide provides step-by-step instructions for setting up the local development environment, running the application, and verifying quality gates for this project.
 
 ## 🚀 Setup Instructions
 
 ### Prerequisites
 
-Ensure you have the following installed:
-- **Node.js** (v16 or higher)
-- **npm** (v8 or higher)
-- **Docker** and **Docker Compose**
-- **Git**
+List the tools, runtimes, package managers, databases, and infrastructure dependencies required to work on this project.
+
+Example structure:
+- **Primary runtime**: [version and installation source]
+- **Package manager**: [tool and minimum version]
+- **Container tooling**: [Docker, Podman, or not required]
+- **Database / external services**: [what must run locally]
+- **Git**: [version guidance if relevant]
 
 ### 1. Clone the Repository
 
 ```bash
-git clone git@github.com:LIDR-academy/AI4Devs-LTI-extended.git
-cd AI4Devs-LTI-extended
+git clone <repository-url>
+cd <repository-folder>
 ```
 
 ### 2. Environment Configuration
 
-Create environment files for both backend and frontend:
+Document the required environment files and variables for every local service.
 
-**Backend Environment** (`backend/.env`):
+Example structure:
+
+**Backend Environment** (`<backend-path>/.env`):
 ```env
-# Database Configuration
-DB_HOST=localhost
-DB_PORT=5432
-DB_USER=LTIdbUser
-DB_PASSWORD=D1ymf8wyQEGthFR1E9xhCq
-DB_NAME=LTIdb
-
-# Application Configuration
-PORT=3000
-NODE_ENV=development
-
-# Prisma Database URL
-DATABASE_URL="postgresql://LTIdbUser:D1ymf8wyQEGthFR1E9xhCq@localhost:5432/LTIdb"
+# Example only - replace with actual variables
+PORT=<port>
+APP_ENV=development
+DATABASE_URL=<connection-string>
 ```
 
-**Frontend Environment** (`frontend/.env`):
+**Frontend Environment** (`<frontend-path>/.env`):
 ```env
-REACT_APP_API_URL=http://localhost:3000
+# Example only - replace with actual variables
+APP_API_URL=http://localhost:<backend-port>
 ```
 
-### 3. Database Setup (PostgreSQL with Docker)
+### 3. Local Infrastructure Setup
 
-Start the PostgreSQL database using Docker Compose:
+Describe how to start any required infrastructure such as databases, queues, caches, storage emulators, or third-party dependencies.
 
 ```bash
-# Start PostgreSQL container
-docker-compose up -d
-
-# Verify the database is running
-docker-compose ps
+# Replace with the real commands for this project
+<infrastructure-start-command>
+<infrastructure-status-command>
 ```
 
-The PostgreSQL database will be available at:
-- **Host**: `localhost`
-- **Port**: `5432`
-- **Database**: `LTIdb`
-- **Username**: `LTIdbUser`
-- **Password**: `D1ymf8wyQEGthFR1E9xhCq`
+Document connection details only as placeholders or safe local defaults. Never hardcode real credentials in the template.
 
 ### 4. Backend Setup
 
 ```bash
-# Navigate to backend directory
-cd backend
+cd <backend-path>
 
 # Install dependencies
-npm install
+<backend-install-command>
 
-# Generate Prisma client
-npm run prisma:generate
+# Generate code or clients if applicable
+<backend-generate-command>
 
-# Run database migrations
-npx prisma migrate deploy
+# Run migrations if applicable
+<backend-migrate-command>
 
-# (Optional) Seed the database with sample data
-npx prisma db seed
+# Seed local data if applicable
+<backend-seed-command>
 
 # Start the development server
-npm run dev
+<backend-dev-command>
 ```
 
-The backend API will be available at `http://localhost:3000`
+Document the expected local backend URL and any required health checks.
 
 ### 5. Frontend Setup
 
 ```bash
-# Navigate to frontend directory (from project root)
-cd frontend
+cd <frontend-path>
 
 # Install dependencies
-npm install
+<frontend-install-command>
 
 # Start the development server
-npm start
+<frontend-dev-command>
 ```
 
-The frontend application will be available at `http://localhost:3001`
+Document the expected local frontend URL and any proxy or API base URL expectations.
 
-### 6. Cypress Testing Suite Setup
+### 6. End-to-End or Integration Test Setup
+
+If the project has E2E, browser, or contract tests, describe their local prerequisites here.
 
 ```bash
-# From the frontend directory
-cd frontend
+cd <test-runner-path>
 
-# Install Cypress (if not already installed)
-npm install
+# Install test dependencies if needed
+<test-install-command>
 
-# Open Cypress Test Runner (Interactive)
-npm run cypress:open
-
-# Or run tests headlessly
-npm run cypress:run
+# Open or run the test suite
+<test-open-command>
+<test-run-command>
 ```
+
+If the project has no such suite, replace this section with the actual highest-level verification workflow used by the team.
 
 ## 🧪 Testing
 
 ### Backend Testing
 
 ```bash
-cd backend
+cd <backend-path>
 
 # Run all tests
-npm test
+<backend-test-command>
 
-# Run tests in watch mode
-npm run test:watch
+# Run tests in watch mode if supported
+<backend-test-watch-command>
 
-# Run tests with coverage
-npm run test:coverage
+# Run tests with coverage if supported
+<backend-test-coverage-command>
 ```
 
 ### Frontend Testing
 
 ```bash
-cd frontend
+cd <frontend-path>
 
-# Run unit tests
-npm test
+# Run unit or component tests
+<frontend-test-command>
 
-# Run E2E tests with Cypress
-npm run cypress:run
-
-# Open Cypress Test Runner
-npm run cypress:open
+# Run browser, E2E, or integration tests if applicable
+<frontend-e2e-command>
 ```
-

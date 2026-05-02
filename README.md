@@ -53,18 +53,89 @@ No direct coding outside this flow.
 
 # 🏗 Project Architecture
 
+- `AGENTS.md` → Codex repository-level operating instructions
+- `plugins/codex-sdd-governance/` → Codex plugin that exposes bridge skills for this workflow
 - `.claude/commands/opsx/` → OpenSpecs workflow commands
 - `.claude/commands/ai-specs/` → Governance & standards commands
 - `ai-specs/` → Specs, templates, standards, docs
 - `openspec/` → OpenSpecs CLI workflow
 
-openspec/ → OpenSpecs CLI workflow
+------------------------------------------------------------------------
+
+# 🤖 Codex Operating Model
+
+This fork adds a Codex-native operator layer without removing the existing
+workflow definitions.
+
+## Design Principle
+
+The legacy `.claude/commands/` files remain the **canonical workflow
+documents**.
+
+Codex consumes them through:
+
+- `AGENTS.md` for repository-wide persistent instructions
+- Codex skills bundled in `plugins/codex-sdd-governance/`
+- Native Codex MCP, plugins, and apps where relevant
+
+This avoids duplicating the workflow logic in multiple formats.
+
+## Why Skills Instead of Custom Slash Commands
+
+Codex does not share Claude Code's repository-local slash-command model
+across all surfaces.
+
+For this reason, the fork uses:
+
+- **Skills** for workflow entrypoints
+- **AGENTS.md** for always-on repository rules
+- **Plugins** for portable packaging across Codex surfaces
+
+This makes the workflow portable across:
+
+- Codex desktop app
+- Codex CLI
+- Codex IDE extension
+
+## Codex Entry Points
+
+The local plugin provides:
+
+- Two router skills:
+  - `opsx-workflow`
+  - `ai-specs-governance`
+- Granular workflow skills:
+  - `opsx-new`
+  - `opsx-continue`
+  - `opsx-apply`
+  - `opsx-verify`
+  - `opsx-sync`
+  - `opsx-archive`
+  - `ai-specs-init-brownfield`
+  - `ai-specs-init-greenfield`
+  - `ai-specs-update-docs`
+  - `ai-specs-user-story`
+  - `ai-specs-commit`
+  - `ai-specs-explain`
+  - `ai-specs-meta-prompt`
+
+All of them route Codex to the matching file under `.claude/commands/` and
+preserve the original guardrails.
+
+Examples:
+
+- "`$opsx-new` for `add-auth`"
+- "`$ai-specs-init-brownfield` on this codebase"
+- "`$opsx-apply` for the active change"
+- "`$ai-specs-update-docs` after these API changes"
 
 ------------------------------------------------------------------------
 
 # 🔄 Command Domains
 
-Commands are organized by namespace.
+The workflow names are still organized by namespace.
+In Codex, treat them as logical workflow identifiers exposed through skills,
+not as repository-local slash commands.
 
 ## 🔄 /opsx:\* --- OpenSpecs Workflow
 
@@ -149,6 +220,10 @@ ai-specs/specs/templates/
 Templates define structure only (headings and section order).\
 They are never copied verbatim.
 
+This fork intentionally keeps the templates **domain-neutral** and
+**stack-neutral**. The generated standards must reflect the actual project,
+not the previous sample application that originally seeded this repository.
+
 Templates prevent:
 
 -   Documentation drift
@@ -163,7 +238,21 @@ Templates prevent:
 
     git clone `<repo>`{=html} cd `<repo>`{=html}
 
-2.  Initialize standards
+2.  Open the repository in Codex
+
+    Codex will load `AGENTS.md` automatically at the repository root.
+
+    If you want the bridge skills available in Codex, this repository already
+    includes the official local plugin layout:
+
+    - `.agents/plugins/marketplace.json`
+    - `plugins/codex-sdd-governance/`
+
+    Installation guide:
+
+    `docs/codex-installation.md`
+
+3.  Initialize standards
 
     /ai-specs:init-greenfield
 
@@ -176,11 +265,14 @@ Templates prevent:
     -   Frontend stack
     -   Tooling & CI
 
-3.  Start a change
+4.  Start a change
 
     /opsx:new
 
 Follow the lifecycle strictly.
+
+For Codex usage, invoke the equivalent workflow through the bridge skills and
+plain-language requests instead of relying on Claude-specific slash commands.
 
 ------------------------------------------------------------------------
 

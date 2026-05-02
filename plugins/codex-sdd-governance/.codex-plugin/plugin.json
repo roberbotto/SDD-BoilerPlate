@@ -1,0 +1,33 @@
+{
+  "name": "codex-sdd-governance",
+  "version": "0.1.0",
+  "description": "Bridge this repository's governed OpenSpec and AI-spec workflows into Codex across App, CLI, and IDE surfaces.",
+  "author": {
+    "name": "SDD BoilerPlate Fork",
+    "url": "https://github.com/"
+  },
+  "license": "MIT",
+  "keywords": [
+    "codex",
+    "openspec",
+    "sdd",
+    "workflow",
+    "governance"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Codex SDD Governance",
+    "shortDescription": "Run OpenSpec and AI-spec governance flows from Codex",
+    "longDescription": "Adds Codex-native entrypoints for the legacy opsx and ai-specs workflows used by this repository, while preserving the existing governance and documentation model.",
+    "developerName": "SDD BoilerPlate Fork",
+    "category": "Productivity",
+    "capabilities": [
+      "Interactive",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "Use the governed OpenSpec workflow in this repository from Codex"
+    ],
+    "screenshots": []
+  }
+}
