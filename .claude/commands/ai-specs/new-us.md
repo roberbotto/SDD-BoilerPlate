@@ -7,6 +7,9 @@ tags: [ai-specs, opsx, enrich, mcp]
 
 # ai-specs:new-us (Draft-first, Deterministic Handoff)
 
+Legacy Claude: `/ai-specs:new-us`
+Codex: `@ai-specs-new-us`
+
 Create a new User Story from Jira, Notion, or manual input.
 Normalize it into a **Base User Story**.
 Run `ai-specs:enrich-us` to generate a **canonical** Enriched User Story and save it to `drafts/enriched/...`.
@@ -129,7 +132,8 @@ Default to Stop here if unclear.
 
 If stopping:
 - Print the saved draft path and recommend:
-  /ai-specs:handoff-us <slug>-<timestamp>
+  Claude: `/ai-specs:handoff-us <slug>-<timestamp>`
+  Codex: `@ai-specs-handoff-us <slug>-<timestamp>`
 
 ---
 
@@ -144,7 +148,8 @@ Rules:
 
 If continuing, execute:
 
-opsx:new
+Claude: `/opsx:new`
+Codex: `@opsx-new`
 
 Input:
 The FULL CONTENTS of the saved draft file (from Step 4), verbatim.

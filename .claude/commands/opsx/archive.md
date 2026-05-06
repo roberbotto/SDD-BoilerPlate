@@ -7,6 +7,9 @@ tags: [workflow, archive, experimental]
 
 Archive a completed change in the experimental workflow.
 
+Legacy Claude: `/opsx:archive`
+Codex: `@opsx-archive`
+
 **Input**: Optionally specify a change name after `/opsx:archive` (e.g., `/opsx:archive add-auth`). If omitted, check if it can be inferred from conversation context. If vague or ambiguous you MUST prompt for available changes.
 
 **Steps**
@@ -59,11 +62,12 @@ Archive a completed change in the experimental workflow.
    - If changes needed: "Sync now (recommended)", "Archive without syncing"
    - If already synced: "Archive now", "Sync anyway", "Cancel"
 
-   If user chooses sync, execute `/opsx:sync` logic. Proceed to archive regardless of choice.
+   If user chooses sync, execute the sync workflow. Proceed to archive regardless of choice.
 
 5. **Update documentation (required)**
 
-   Execute `/ai-specs:update-docs` before archiving.
+   Claude: `/ai-specs:update-docs` before archiving.
+   Codex: `@ai-specs-update-docs` before archiving.
 
    **Blocking rule (API):**
    If the change introduced or modified APIs, `ai-specs/specs/api-spec.yml` MUST be updated.

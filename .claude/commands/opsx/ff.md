@@ -8,6 +8,9 @@ tags: [workflow, artifacts, experimental]
 Fast-forward through artifact creation - generate everything needed to start implementation.
 This command orchestrates `/opsx:continue` in a loop until the change is apply-ready.
 
+Legacy Claude: `/opsx:ff`
+Codex: `@opsx-ff`
+
 **Input**: The argument after `/opsx:ff` is the change name (kebab-case), OR a description of what the user wants to build.
 
 ---
@@ -66,7 +69,7 @@ Summarize:
 - Change name and location
 - List of artifacts created with brief descriptions
 - "All artifacts created! Ready for implementation."
-- Prompt: "Run `/opsx:apply` to start implementing."
+- Prompt: "Claude: run `/opsx:apply` to start implementing. Codex: run `@opsx-apply`."
 
 ---
 

@@ -7,6 +7,9 @@ tags: [standards, templates, bootstrap]
 
 Generate missing definitive standards files for this repository using the provided templates and the project's actual tech stack.
 
+Legacy Claude: `/ai-specs:init-greenfield`
+Codex: `@ai-specs-init-greenfield`
+
 Goal:
 Create (or update if empty) the following files:
 

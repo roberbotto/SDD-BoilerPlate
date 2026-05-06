@@ -9,6 +9,12 @@ This skill is the Codex bridge for the legacy OpenSpec workflow commands stored 
 
 Do not re-invent the workflow from memory. Read the matching command file and use it as the canonical procedure for the requested action.
 
+Legacy Claude form:
+- `/opsx:*`
+
+Codex form:
+- `@opsx-*`
+
 Prefer the granular sibling skills when the user's intent is specific:
 
 - [opsx-new](../opsx-new/SKILL.md)
@@ -54,5 +60,6 @@ If the user describes intent without naming the command, infer the closest workf
 ## Output style
 
 - Be explicit about which workflow you are running.
+- Mention the legacy Claude form when the user is on Claude and the Codex form when the user is on Codex.
 - Keep the user informed when you switch from artifact work to implementation or archive checks.
 - Preserve the repository's governed SDD posture: standards first, specs first, code second.

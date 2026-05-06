@@ -11,6 +11,9 @@ tags:
 
 Create a structured commit following project standards.
 
+Legacy Claude: `/ai-specs:commit`
+Codex: `@ai-specs-commit`
+
 ## Steps
 
 1.  Review changes

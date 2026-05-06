@@ -7,6 +7,9 @@ tags: [standards, brownfield, bootstrap, baseline, adoption]
 
 # ai-specs:init-brownfield — Adopt an Existing System
 
+Legacy Claude: `/ai-specs:init-brownfield`
+Codex: `@ai-specs-init-brownfield`
+
 This is the adoption command for existing (brownfield) projects.
 It analyzes the current codebase and produces everything needed to start working with the SDD/OpenSpec workflow on top of what already exists.
 
@@ -432,14 +435,14 @@ Display a final summary:
 - ✓ notifications/spec.md (2 requirements, 3 scenarios)
 
 ### Ready For
-- /ai-specs:new-us → create new user stories
-- /opsx:new → create changes with delta specs
-- /opsx:explore → investigate the codebase
+- Claude: `/ai-specs:new-us` → create new user stories | Codex: `@ai-specs-new-us`
+- Claude: `/opsx:new` → create changes with delta specs | Codex: `@opsx-new`
+- Claude: `/opsx:explore` → investigate the codebase | Codex: `@opsx-explore`
 
 ### Recommendations
 - [ ] Review generated specs and correct any inaccuracies
 - [ ] Add scenarios for critical business logic not captured
-- [ ] Consider running /opsx:explore on the most complex module
+- [ ] Consider running `/opsx:explore` in Claude or `@opsx-explore` in Codex on the most complex module
 ```
 
 ---

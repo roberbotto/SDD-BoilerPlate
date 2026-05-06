@@ -20,6 +20,8 @@ After installation, Codex can load:
 - the local plugin `codex-sdd-governance`
 - workflow skills such as `opsx-new`, `opsx-apply`, `opsx-verify`, `ai-specs-init-brownfield`, and `ai-specs-update-docs`
 
+The legacy Claude commands remain available in `.claude/commands/` and are not removed.
+
 ## Prerequisites
 
 - A recent Codex build with plugin support
@@ -41,6 +43,19 @@ Official reference:
 
 - Codex local plugin installation uses `$REPO_ROOT/.agents/plugins/marketplace.json` and `$REPO_ROOT/plugins/` for repository-local plugins.
 
+## Command Mapping
+
+Use the surface that matches the runtime you are in:
+
+| Surface | Invocation style | Example |
+| --- | --- | --- |
+| Claude Code | Legacy slash commands | `/opsx:new` |
+| Codex | Skills in the composer | `@opsx-new` |
+| Claude Code | Legacy slash commands | `/ai-specs:init-brownfield` |
+| Codex | Skills in the composer | `@ai-specs-init-brownfield` |
+
+The workflow logic stays the same; only the operator surface changes.
+
 ## Codex App
 
 1. Quit and reopen the Codex app after pulling the latest repository changes.
@@ -49,16 +64,16 @@ Official reference:
 4. Invoke a skill explicitly from the composer, for example:
 
 ```text
-$opsx-new for add-auth
+@opsx-new for add-auth
 ```
 
 Or:
 
 ```text
-$ai-specs-init-brownfield on this codebase
+@ai-specs-init-brownfield on this codebase
 ```
 
-The Codex app documentation states that you can invoke skills by typing `$` in the composer, and enabled skills also appear in the slash command list.
+If you are following the legacy Claude docs, the equivalent command strings are `/opsx:new` and `/ai-specs:init-brownfield`.
 
 ## Codex CLI
 
@@ -73,13 +88,13 @@ codex
 3. Ask Codex to use one of the installed skills by name, for example:
 
 ```text
-Use the opsx-new skill for add-auth
+Use the @opsx-new skill for add-auth
 ```
 
 Or:
 
 ```text
-Use the ai-specs-update-docs skill after these API changes
+Use the @ai-specs-update-docs skill after these API changes
 ```
 
 If you changed plugin files and the update does not appear, restart the session.
@@ -92,13 +107,13 @@ If you changed plugin files and the update does not appear, restart the session.
 4. Invoke a repository workflow by skill name, for example:
 
 ```text
-Use the opsx-apply skill for the active change
+Use the @opsx-apply skill for the active change
 ```
 
 Or:
 
 ```text
-Use the ai-specs-user-story skill to enrich this story
+Use the @ai-specs-user-story skill to enrich this story
 ```
 
 ## Verification
@@ -106,8 +121,9 @@ Use the ai-specs-user-story skill to enrich this story
 Use one of these quick checks:
 
 - Ask Codex which instruction files it loaded. It should report `AGENTS.md`.
-- Ask Codex to use `opsx-new` or `ai-specs-init-brownfield`.
-- In the Codex app, type `$` in the composer and verify that the relevant skills are available.
+- Ask Codex to use `@opsx-new` or `@ai-specs-init-brownfield`.
+- In the Codex app, type `@` in the composer and verify that the relevant skills are available.
+- In Claude, confirm the legacy `/opsx:new` and `/ai-specs:init-brownfield` commands are still present.
 
 ## Troubleshooting
 

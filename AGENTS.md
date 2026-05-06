@@ -16,11 +16,17 @@ Until the migration is completed, the legacy command definitions under `.claude/
 - `opsx:*` workflows live in `.claude/commands/opsx/*.md`
 - `ai-specs:*` workflows live in `.claude/commands/ai-specs/*.md`
 
+Both surfaces coexist:
+
+- Claude Code uses `/opsx:*` and `/ai-specs:*`
+- Codex uses the matching skills, typically invoked as `@opsx-*` and `@ai-specs-*`
+
 If a user asks to run one of those workflows from Codex, use the Codex bridge skills from `plugins/codex-sdd-governance/skills/` and follow the corresponding `.claude` command file as the source of truth.
 
 ## Codex compatibility rules
 
 - In Codex App, CLI, and IDE, prefer skills plus `AGENTS.md` over product-specific custom slash commands.
+- Keep the legacy Claude command strings in docs and prompts when they are part of the workflow contract.
 - If a legacy workflow mentions `AskUserQuestion`, ask the user directly in a concise way when needed.
 - If a legacy workflow mentions `TodoWrite`, use plan tracking only when it adds value.
 - If a legacy workflow mentions Claude-specific MCP UX, translate it to Codex MCP/apps usage.

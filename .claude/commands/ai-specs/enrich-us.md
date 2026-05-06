@@ -7,6 +7,9 @@ tags: [ai-specs, enrich, user-story, snapshot, figma]
 
 # ai-specs:enrich-us (Canonical Snapshot First)
 
+Legacy Claude: `/ai-specs:enrich-us`
+Codex: `@ai-specs-enrich-us`
+
 You take a **Base User Story** as input and produce an **Enriched User Story**.
 
 This command is the source of truth for the enriched content used by OpenSpecs.

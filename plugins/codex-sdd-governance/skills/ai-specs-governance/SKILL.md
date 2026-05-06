@@ -9,6 +9,12 @@ This skill is the Codex bridge for the governance and standards workflows stored
 
 Do not paraphrase the workflow from memory when the repository already defines it. Read the corresponding command file and follow it.
 
+Legacy Claude form:
+- `/ai-specs:*`
+
+Codex form:
+- `@ai-specs-*`
+
 Prefer the granular sibling skills when the intent is specific:
 
 - [ai-specs-init-brownfield](../ai-specs-init-brownfield/SKILL.md)
@@ -57,5 +63,6 @@ For existing systems, prefer `ai-specs:init-brownfield` as the entrypoint. It is
 ## Output style
 
 - Be explicit about the selected governance workflow.
+- Mention the legacy Claude form when the user is on Claude and the Codex form when the user is on Codex.
 - Separate detected facts from assumptions.
 - Preserve deterministic artifacts and canonical saved snapshots when the original workflow requires them.

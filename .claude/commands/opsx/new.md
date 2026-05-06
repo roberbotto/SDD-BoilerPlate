@@ -59,7 +59,7 @@ After completing the steps, summarize:
 - Schema/workflow being used and its artifact sequence
 - Current status (0/N artifacts complete)
 - The template for the first artifact
-- Prompt: "Ready to create the first artifact? Run `/opsx:continue` or just describe what this change is about and I'll draft it."
+- Prompt: "Ready to create the first artifact? Claude: run `/opsx:continue`. Codex: run `@opsx-continue`. Or just describe what this change is about and I'll draft it."
 
 **Guardrails**
 - Do NOT create any artifacts yet - just show the instructions

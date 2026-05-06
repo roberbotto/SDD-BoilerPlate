@@ -122,12 +122,18 @@ The local plugin provides:
 All of them route Codex to the matching file under `.claude/commands/` and
 preserve the original guardrails.
 
+Both operator surfaces are supported:
+
+- Claude Code keeps using `/opsx:*` and `/ai-specs:*`
+- Codex uses the matching skills, invoked as `@opsx-*` and `@ai-specs-*`
+
 Examples:
 
-- "`$opsx-new` for `add-auth`"
-- "`$ai-specs-init-brownfield` on this codebase"
-- "`$opsx-apply` for the active change"
-- "`$ai-specs-update-docs` after these API changes"
+- "`@opsx-new` for `add-auth`"
+- "`@ai-specs-init-brownfield` on this codebase"
+- "`@opsx-apply` for the active change"
+- "`@ai-specs-update-docs` after these API changes"
+- "Claude users can keep using `/opsx:new` and `/ai-specs:init-brownfield`"
 
 ------------------------------------------------------------------------
 
@@ -141,16 +147,16 @@ not as repository-local slash commands.
 
 Lifecycle management commands:
 
--   /opsx:new --- Start a new change
--   /opsx:ff --- Fast‑forward creation of artifacts
--   /opsx:apply --- Implement change artifacts
--   /opsx:verify --- Verify implementation vs artifacts
--   /opsx:sync --- Sync delta specs into main specs
--   /opsx:continue --- Continue experimental workflow
--   /opsx:archive --- Archive completed change
--   /opsx:bulk-archive --- Archive multiple changes
--   /opsx:explore --- Investigation mode (no implementation)
--   /opsx:onboard --- Guided onboarding through workflow
+-   /opsx:new --- Claude: start a new change | Codex: `@opsx-new`
+-   /opsx:ff --- Claude: fast-forward creation of artifacts | Codex: `@opsx-ff`
+-   /opsx:apply --- Claude: implement change artifacts | Codex: `@opsx-apply`
+-   /opsx:verify --- Claude: verify implementation vs artifacts | Codex: `@opsx-verify`
+-   /opsx:sync --- Claude: sync delta specs into main specs | Codex: `@opsx-sync`
+-   /opsx:continue --- Claude: continue experimental workflow | Codex: `@opsx-continue`
+-   /opsx:archive --- Claude: archive completed change | Codex: `@opsx-archive`
+-   /opsx:bulk-archive --- Claude: archive multiple changes | Codex: `@opsx-bulk-archive`
+-   /opsx:explore --- Claude: investigation mode (no implementation) | Codex: `@opsx-explore`
+-   /opsx:onboard --- Claude: guided onboarding through workflow | Codex: `@opsx-onboard`
 
 These commands manage the change lifecycle only.
 
@@ -161,37 +167,44 @@ These commands manage the change lifecycle only.
 These commands manage standards, documentation, planning, and execution.
 
 -   /ai-specs:init-greenfield\
-    Generate backend and frontend standards from templates using your
-    tech stack.
+    Claude: generate backend and frontend standards from templates using your tech stack.
+    Codex: `@ai-specs-init-greenfield`
 
 -   /ai-specs:update-docs\
-    Enforce documentation-standards.mdc (update API spec, data model,
-    development guide).
+    Claude: enforce documentation-standards.mdc (update API spec, data model, development guide).
+    Codex: `@ai-specs-update-docs`
 
 -   /ai-specs:new-us\  
-    Create a new structured user story aligned with SDD standards.
+    Claude: create a new structured user story aligned with SDD standards.
+    Codex: `@ai-specs-new-us`
 
 -   /ai-specs:enrich-us\
-    Improve and refine user stories/tickets for clarity and
-    completeness.
+    Claude: improve and refine user stories/tickets for clarity and completeness.
+    Codex: `@ai-specs-enrich-us`
 
 -   /ai-specs:handoff-us\
-    Prepare a validated user story for implementation (technical-ready state).
+    Claude: prepare a validated user story for implementation (technical-ready state).
+    Codex: `@ai-specs-handoff-us`
 
 -   /ai-specs:plan-backend-ticket\
-    Generate an implementation plan for backend tickets.
+    Claude: generate an implementation plan for backend tickets.
+    Codex: `@ai-specs-plan-backend-ticket`
 
 -   /ai-specs:plan-frontend-ticket\
-    Generate an implementation plan for frontend tickets.
+    Claude: generate an implementation plan for frontend tickets.
+    Codex: `@ai-specs-plan-frontend-ticket`
 
 -   /ai-specs:commit\  
-    Structured commit (and optional PR) workflow with governance checks.
+    Claude: structured commit (and optional PR) workflow with governance checks.
+    Codex: `@ai-specs-commit`
 
 -   /ai-specs:explain\
-    Deep conceptual explanation mode.
+    Claude: deep conceptual explanation mode.
+    Codex: `@ai-specs-explain`
 
 -   /ai-specs:meta-prompt\
-    Improve and structure prompts for better AI execution.
+    Claude: improve and structure prompts for better AI execution.
+    Codex: `@ai-specs-meta-prompt`
 
 ------------------------------------------------------------------------
 
@@ -205,7 +218,8 @@ Standards may initially be empty in greenfield setups.
 
 If backend-standards.mdc or frontend-standards.mdc do not exist, run:
 
-/ai-specs:init-greenfield
+Claude: `/ai-specs:init-greenfield`
+Codex: `@ai-specs-init-greenfield`
 
 This generates deterministic, stack‑specific standards from templates.
 
@@ -254,7 +268,8 @@ Templates prevent:
 
 3.  Initialize standards
 
-    /ai-specs:init-greenfield
+    Claude: `/ai-specs:init-greenfield`
+    Codex: `@ai-specs-init-greenfield`
 
     Provide:
 
@@ -267,7 +282,8 @@ Templates prevent:
 
 4.  Start a change
 
-    /opsx:new
+    Claude: `/opsx:new`
+    Codex: `@opsx-new`
 
 Follow the lifecycle strictly.
 

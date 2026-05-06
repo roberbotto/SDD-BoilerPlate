@@ -34,6 +34,10 @@ The ai-specs: enrich-us command will:
   "To refine" → "Pending refinement validation"
   (if a Status property exists)
 
+Codex equivalent:
+
+- `@ai-specs-enrich-us`
+
 If no Status property exists, enrichment still works,
 but status transitions will be skipped.
 
@@ -68,6 +72,10 @@ Ensure the following fields are used consistently:
 
 Avoid mixing meeting notes or unrelated discussions inside the description.
 
+Codex equivalent:
+
+- `@ai-specs-enrich-us`
+
 ---
 
 ## Recommended Workflow States
@@ -95,6 +103,10 @@ It will automatically transition to:
 
 If the workflow does not contain this status,
 the transition step will be skipped safely.
+
+Codex equivalent:
+
+- `@ai-specs-enrich-us`
 
 ---
 
