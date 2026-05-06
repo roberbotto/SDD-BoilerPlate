@@ -75,6 +75,7 @@ documents**.
 Codex consumes them through:
 
 - `AGENTS.md` for repository-wide persistent instructions
+- repo-local skills in `.agents/skills/`
 - Codex skills bundled in `plugins/codex-sdd-governance/`
 - Native Codex MCP, plugins, and apps where relevant
 
@@ -121,6 +122,9 @@ The local plugin provides:
 
 All of them route Codex to the matching file under `.claude/commands/` and
 preserve the original guardrails.
+
+For maximum compatibility across Codex surfaces, the same skills are also
+exposed directly under `.agents/skills/`.
 
 Both operator surfaces are supported:
 

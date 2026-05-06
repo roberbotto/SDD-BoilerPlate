@@ -17,6 +17,7 @@ These locations follow the official Codex local-plugin convention for repository
 After installation, Codex can load:
 
 - repository instructions from `AGENTS.md`
+- repo-local skills from `.agents/skills/`
 - the local plugin `codex-sdd-governance`
 - workflow skills such as `opsx-new`, `opsx-apply`, `opsx-verify`, `ai-specs-init-brownfield`, and `ai-specs-update-docs`
 
@@ -35,6 +36,7 @@ No file copying is required if you use this repository as the plugin host.
 1. Open the repository root.
 2. Confirm these files exist:
    - `AGENTS.md`
+   - `.agents/skills/`
    - `.agents/plugins/marketplace.json`
    - `plugins/codex-sdd-governance/.codex-plugin/plugin.json`
 3. Restart Codex so it reloads the repository marketplace and plugin definitions.
@@ -55,6 +57,9 @@ Use the surface that matches the runtime you are in:
 | Codex | Skills in the composer | `@ai-specs-init-brownfield` |
 
 The workflow logic stays the same; only the operator surface changes.
+
+If a Codex surface does not pick up the plugin marketplace immediately, the
+`.agents/skills/` mirror is the primary discovery path to rely on.
 
 ## Codex App
 
