@@ -80,6 +80,29 @@ Codex consumes them through:
 
 This avoids duplicating the workflow logic in multiple formats.
 
+## Portability Across Projects
+
+The Codex adaptation in this fork is packaged as a local operator layer:
+
+- `AGENTS.md`
+- `.agents/skills/`
+
+Those two artifacts are the Codex-facing entrypoints, but they are not
+standalone workflow definitions.
+
+The skills under `.agents/skills/` route Codex back to the canonical
+workflow documents stored under `.claude/commands/`.
+
+If you want to reuse this Codex adaptation in another repository, copy at
+least:
+
+- `AGENTS.md`
+- `.agents/skills/`
+- `.claude/commands/`
+
+If you omit `.claude/commands/`, the Codex skills remain present but lose
+their canonical workflow source.
+
 ## Why Skills Instead of Custom Slash Commands
 
 Codex does not share Claude Code's repository-local slash-command model
@@ -128,14 +151,16 @@ exposed directly under `.agents/skills/`.
 Both operator surfaces are supported:
 
 - Claude Code keeps using `/opsx:*` and `/ai-specs:*`
-- Codex uses the matching skills, invoked as `@opsx-*` and `@ai-specs-*`
+- Codex uses the matching skills, invoked as `$opsx-*` and `$ai-specs-*`
 
 Examples:
 
-- "`@opsx-new` for `add-auth`"
-- "`@ai-specs-init-brownfield` on this codebase"
-- "`@opsx-apply` for the active change"
-- "`@ai-specs-update-docs` after these API changes"
+- "`$opsx-new` for `add-auth`"
+- "`$ai-specs-init-brownfield` on this codebase"
+- "`$opsx-apply` for the active change"
+- "`$ai-specs-update-docs` after these API changes"
+- "`$ai-specs-user-story` to create, enrich, or hand off a story"
+- "`$opsx-workflow` for `/opsx:ff`, `/opsx:bulk-archive`, or `/opsx:explore`"
 - "Claude users can keep using `/opsx:new` and `/ai-specs:init-brownfield`"
 
 ------------------------------------------------------------------------
@@ -150,16 +175,16 @@ not as repository-local slash commands.
 
 Lifecycle management commands:
 
--   /opsx:new --- Claude: start a new change | Codex: `@opsx-new`
--   /opsx:ff --- Claude: fast-forward creation of artifacts | Codex: `@opsx-ff`
--   /opsx:apply --- Claude: implement change artifacts | Codex: `@opsx-apply`
--   /opsx:verify --- Claude: verify implementation vs artifacts | Codex: `@opsx-verify`
--   /opsx:sync --- Claude: sync delta specs into main specs | Codex: `@opsx-sync`
--   /opsx:continue --- Claude: continue experimental workflow | Codex: `@opsx-continue`
--   /opsx:archive --- Claude: archive completed change | Codex: `@opsx-archive`
--   /opsx:bulk-archive --- Claude: archive multiple changes | Codex: `@opsx-bulk-archive`
--   /opsx:explore --- Claude: investigation mode (no implementation) | Codex: `@opsx-explore`
--   /opsx:onboard --- Claude: guided onboarding through workflow | Codex: `@opsx-onboard`
+-   /opsx:new --- Claude: start a new change | Codex: `$opsx-new`
+-   /opsx:ff --- Claude: fast-forward creation of artifacts | Codex: `$opsx-workflow`
+-   /opsx:apply --- Claude: implement change artifacts | Codex: `$opsx-apply`
+-   /opsx:verify --- Claude: verify implementation vs artifacts | Codex: `$opsx-verify`
+-   /opsx:sync --- Claude: sync delta specs into main specs | Codex: `$opsx-sync`
+-   /opsx:continue --- Claude: continue experimental workflow | Codex: `$opsx-continue`
+-   /opsx:archive --- Claude: archive completed change | Codex: `$opsx-archive`
+-   /opsx:bulk-archive --- Claude: archive multiple changes | Codex: `$opsx-workflow`
+-   /opsx:explore --- Claude: investigation mode (no implementation) | Codex: `$opsx-workflow`
+-   /opsx:onboard --- Claude: guided onboarding through workflow | Codex: `$opsx-workflow`
 
 These commands manage the change lifecycle only.
 
@@ -171,43 +196,35 @@ These commands manage standards, documentation, planning, and execution.
 
 -   /ai-specs:init-greenfield\
     Claude: generate backend and frontend standards from templates using your tech stack.
-    Codex: `@ai-specs-init-greenfield`
+    Codex: `$ai-specs-init-greenfield`
 
 -   /ai-specs:update-docs\
     Claude: enforce documentation-standards.mdc (update API spec, data model, development guide).
-    Codex: `@ai-specs-update-docs`
+    Codex: `$ai-specs-update-docs`
 
 -   /ai-specs:new-us\  
     Claude: create a new structured user story aligned with SDD standards.
-    Codex: `@ai-specs-new-us`
+    Codex: `$ai-specs-user-story`
 
 -   /ai-specs:enrich-us\
     Claude: improve and refine user stories/tickets for clarity and completeness.
-    Codex: `@ai-specs-enrich-us`
+    Codex: `$ai-specs-user-story`
 
 -   /ai-specs:handoff-us\
     Claude: prepare a validated user story for implementation (technical-ready state).
-    Codex: `@ai-specs-handoff-us`
-
--   /ai-specs:plan-backend-ticket\
-    Claude: generate an implementation plan for backend tickets.
-    Codex: `@ai-specs-plan-backend-ticket`
-
--   /ai-specs:plan-frontend-ticket\
-    Claude: generate an implementation plan for frontend tickets.
-    Codex: `@ai-specs-plan-frontend-ticket`
+    Codex: `$ai-specs-user-story`
 
 -   /ai-specs:commit\  
     Claude: structured commit (and optional PR) workflow with governance checks.
-    Codex: `@ai-specs-commit`
+    Codex: `$ai-specs-commit`
 
 -   /ai-specs:explain\
     Claude: deep conceptual explanation mode.
-    Codex: `@ai-specs-explain`
+    Codex: `$ai-specs-explain`
 
 -   /ai-specs:meta-prompt\
     Claude: improve and structure prompts for better AI execution.
-    Codex: `@ai-specs-meta-prompt`
+    Codex: `$ai-specs-meta-prompt`
 
 ------------------------------------------------------------------------
 
@@ -222,7 +239,7 @@ Standards may initially be empty in greenfield setups.
 If backend-standards.mdc or frontend-standards.mdc do not exist, run:
 
 Claude: `/ai-specs:init-greenfield`
-Codex: `@ai-specs-init-greenfield`
+Codex: `$ai-specs-init-greenfield`
 
 This generates deterministic, stack‑specific standards from templates.
 
@@ -261,6 +278,9 @@ Templates prevent:
 
     The skill set is already exposed under `.agents/skills/`.
 
+    Those skills still depend on `.claude/commands/`, which remains the
+    canonical workflow source.
+
     Installation guide:
 
     `docs/codex-installation.md`
@@ -268,7 +288,7 @@ Templates prevent:
 3.  Initialize standards
 
     Claude: `/ai-specs:init-greenfield`
-    Codex: `@ai-specs-init-greenfield`
+    Codex: `$ai-specs-init-greenfield`
 
     Provide:
 
@@ -282,12 +302,15 @@ Templates prevent:
 4.  Start a change
 
     Claude: `/opsx:new`
-    Codex: `@opsx-new`
+    Codex: `$opsx-new`
 
 Follow the lifecycle strictly.
 
 For Codex usage, invoke the equivalent workflow through the bridge skills and
 plain-language requests instead of relying on Claude-specific slash commands.
+
+If you transplant this Codex layer into another repository, copy
+`AGENTS.md`, `.agents/skills/`, and `.claude/commands/` together.
 
 ------------------------------------------------------------------------
 

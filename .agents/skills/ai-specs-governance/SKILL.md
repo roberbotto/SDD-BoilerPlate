@@ -13,7 +13,7 @@ Legacy Claude form:
 - `/ai-specs:*`
 
 Codex form:
-- `@ai-specs-*`
+- `$ai-specs-*`
 
 Prefer the granular sibling skills when the intent is specific:
 

@@ -9,6 +9,7 @@ It provides:
 
 -   OpenSpecs workflow (`/opsx:*`)
 -   AI governance layer (`/ai-specs:*`)
+-   Codex bridge layer through `AGENTS.md` and `.agents/skills/`
 -   Deterministic standards system
 -   Documentation enforcement
 -   Spec-Driven Development (SDD)
@@ -32,8 +33,10 @@ Initialize a new Git repository.
 Keep:
 
 -   `.claude/`
+-   `.agents/skills/`
 -   `ai-specs/`
 -   `openspec/`
+-   `AGENTS.md`
 -   `CLAUDE.md`
 -   `.gitignore`
 -   `README.md`
@@ -47,6 +50,10 @@ Remove (if present):
 -   Example APIs or dummy data
 
 The governance and workflow system must remain intact.
+
+For Codex reuse, `AGENTS.md` and `.agents/skills/` are the local Codex
+entrypoints, and `.claude/commands/` remains the canonical workflow source
+they depend on.
 
 # ⚠️ IMPORTANT — DO NOT RUN `openspec init`
 
@@ -85,6 +92,9 @@ VS Code
 
 The Claude Code VS Code extension (Anthropic)
 
+Codex App, Codex CLI, or the Codex IDE extension if you want to use the
+Codex operator surface
+
 # 4. Setup Steps
 
 Clone the repository:
@@ -108,6 +118,9 @@ Warn if openspec init was executed accidentally
 
 Provide corrective guidance if something is missing
 
+If you are adopting the Codex operator surface in another repository, keep
+`AGENTS.md`, `.agents/skills/`, and `.claude/commands/` together.
+
 # 5. First-Time Project Usage
 
 This is the actual minimal workflow.
@@ -129,6 +142,12 @@ Choose the appropriate initialization command:
 /ai-specs:init-greenfield
 ```
 
+Codex equivalent:
+
+```text
+$ai-specs-init-greenfield
+```
+
 You will be prompted for:
 
 -   Backend language & framework
@@ -145,6 +164,12 @@ This generates deterministic, stack-specific standards.
 
 ```bash
 /ai-specs:init-brownfield
+```
+
+Codex equivalent:
+
+```text
+$ai-specs-init-brownfield
 ```
 
 This command will:
@@ -169,9 +194,19 @@ Without this step, development is blocked by design.
 /ai-specs:new-us
 ```
 
+Codex equivalent:
+
+```text
+$ai-specs-user-story
+```
+
 This command internally calls:
 
 /ai-specs:enrich-us
+
+Codex equivalent:
+
+`$ai-specs-user-story`
 
 to ensure the story follows SDD structure.
 
@@ -189,6 +224,12 @@ When ready for implementation:
 /ai-specs:handoff-us
 ```
 
+Codex equivalent:
+
+```text
+$ai-specs-user-story
+```
+
 This validates and upgrades the story to implementation-ready 
 status.
 
@@ -202,10 +243,22 @@ Once the User Story is implementation-ready:
 /opsx:new
 ```
 
+Codex equivalent:
+
+```text
+$opsx-new
+```
+
 Then continue working on the change:
 
 ```bash
 /opsx:continue
+```
+
+Codex equivalent:
+
+```text
+$opsx-continue
 ```
 
 # 9. Apply (When the 4 Artifacts Are Ready)
@@ -214,6 +267,12 @@ When all required artifacts are completed:
 
 ```bash
 /opsx:apply
+```
+
+Codex equivalent:
+
+```text
+$opsx-apply
 ```
 
 This step includes:

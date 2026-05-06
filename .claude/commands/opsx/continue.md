@@ -47,7 +47,7 @@ Parse the JSON to understand current state. The response includes:
 If `isComplete: true`:
 - Congratulate the user
 - Show final status including the schema used
-- Suggest: "All artifacts created! Claude: implement with `/opsx:apply` or archive with `/opsx:archive`. Codex: use `@opsx-apply` or `@opsx-archive`."
+- Suggest: "All artifacts created! Claude: implement with `/opsx:apply` or archive with `/opsx:archive`. Codex: use `$opsx-apply` or `$opsx-archive`."
 - STOP
 
 ---
@@ -234,7 +234,7 @@ Show:
 - Schema workflow being used
 - Current progress (N/M complete)
 - What artifacts are now unlocked
-- Prompt: "Claude: run `/opsx:continue` to create the next artifact. Codex: run `@opsx-continue`."
+- Prompt: "Claude: run `/opsx:continue` to create the next artifact. Codex: run `$opsx-continue`."
 
 ---
 

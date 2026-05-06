@@ -8,7 +8,7 @@ tags: [workflow, onboarding, tutorial, learning]
 Guide the user through their first complete OpenSpec workflow cycle. This is a teaching experience—you'll do real work in their codebase while explaining each step.
 
 Legacy Claude: `/opsx:onboard`
-Codex: `@opsx-onboard`
+Codex: `$opsx-onboard`
 
 ---
 
@@ -458,19 +458,19 @@ This same rhythm works for any size change—a small fix or a major feature.
 
 | Command | What it does |
 |---------|--------------|
-| `/opsx:explore` | Claude: think through problems before/during work | Codex: `@opsx-explore` |
-| `/opsx:new` | Claude: start a new change, step through artifacts | Codex: `@opsx-new` |
-| `/opsx:ff` | Claude: fast-forward; create all artifacts at once | Codex: `@opsx-ff` |
-| `/opsx:continue` | Claude: continue working on an existing change | Codex: `@opsx-continue` |
-| `/opsx:apply` | Claude: implement tasks from a change | Codex: `@opsx-apply` |
-| `/opsx:verify` | Claude: verify implementation matches artifacts | Codex: `@opsx-verify` |
-| `/opsx:archive` | Claude: archive a completed change | Codex: `@opsx-archive` |
+| `/opsx:explore` | Claude: think through problems before/during work | Codex: `$opsx-explore` |
+| `/opsx:new` | Claude: start a new change, step through artifacts | Codex: `$opsx-new` |
+| `/opsx:ff` | Claude: fast-forward; create all artifacts at once | Codex: `$opsx-ff` |
+| `/opsx:continue` | Claude: continue working on an existing change | Codex: `$opsx-continue` |
+| `/opsx:apply` | Claude: implement tasks from a change | Codex: `$opsx-apply` |
+| `/opsx:verify` | Claude: verify implementation matches artifacts | Codex: `$opsx-verify` |
+| `/opsx:archive` | Claude: archive a completed change | Codex: `$opsx-archive` |
 
 ---
 
 ## What's Next?
 
-Try `/opsx:new` or `/opsx:ff` in Claude, or `@opsx-new` / `@opsx-ff` in Codex, on something you actually want to build. You've got the rhythm now!
+Try `/opsx:new` or `/opsx:ff` in Claude, or `$opsx-new` / `$opsx-ff` in Codex, on something you actually want to build. You've got the rhythm now!
 ```
 
 ---
@@ -502,13 +502,13 @@ If the user says they just want to see the commands or skip the tutorial:
 
 | Command | What it does |
 |---------|--------------|
-| `/opsx:explore` | Claude: think through problems (no code changes) | Codex: `@opsx-explore` |
-| `/opsx:new <name>` | Claude: start a new change, step by step | Codex: `@opsx-new` |
-| `/opsx:ff <name>` | Claude: fast-forward, all artifacts at once | Codex: `@opsx-ff` |
-| `/opsx:continue <name>` | Claude: continue an existing change | Codex: `@opsx-continue` |
-| `/opsx:apply <name>` | Claude: implement tasks | Codex: `@opsx-apply` |
-| `/opsx:verify <name>` | Claude: verify implementation | Codex: `@opsx-verify` |
-| `/opsx:archive <name>` | Claude: archive when done | Codex: `@opsx-archive` |
+| `/opsx:explore` | Claude: think through problems (no code changes) | Codex: `$opsx-explore` |
+| `/opsx:new <name>` | Claude: start a new change, step by step | Codex: `$opsx-new` |
+| `/opsx:ff <name>` | Claude: fast-forward, all artifacts at once | Codex: `$opsx-ff` |
+| `/opsx:continue <name>` | Claude: continue an existing change | Codex: `$opsx-continue` |
+| `/opsx:apply <name>` | Claude: implement tasks | Codex: `$opsx-apply` |
+| `/opsx:verify <name>` | Claude: verify implementation | Codex: `$opsx-verify` |
+| `/opsx:archive <name>` | Claude: archive when done | Codex: `$opsx-archive` |
 
 Try `/opsx:new` to start your first change, or `/opsx:ff` if you want to move fast.
 ```

@@ -36,7 +36,7 @@ The ai-specs: enrich-us command will:
 
 Codex equivalent:
 
-- `@ai-specs-enrich-us`
+- `$ai-specs-user-story`
 
 If no Status property exists, enrichment still works,
 but status transitions will be skipped.
@@ -74,7 +74,7 @@ Avoid mixing meeting notes or unrelated discussions inside the description.
 
 Codex equivalent:
 
-- `@ai-specs-enrich-us`
+- `$ai-specs-user-story`
 
 ---
 
@@ -106,7 +106,7 @@ the transition step will be skipped safely.
 
 Codex equivalent:
 
-- `@ai-specs-enrich-us`
+- `$ai-specs-user-story`
 
 ---
 

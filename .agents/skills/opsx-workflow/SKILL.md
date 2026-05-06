@@ -13,7 +13,7 @@ Legacy Claude form:
 - `/opsx:*`
 
 Codex form:
-- `@opsx-*`
+- `$opsx-*`
 
 Prefer the granular sibling skills when the user's intent is specific:
 

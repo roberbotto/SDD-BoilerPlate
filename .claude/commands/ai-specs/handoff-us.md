@@ -8,7 +8,7 @@ tags: [ai-specs, workflow, handoff]
 Validate an enriched User Story draft and continue the delivery flow.
 
 Legacy Claude: `/ai-specs:handoff-us`
-Codex: `@ai-specs-handoff-us`
+Codex: `$ai-specs-handoff-us`
 
 This command assumes an enriched canonical snapshot already exists in:
 drafts/enriched/
@@ -77,7 +77,7 @@ It validates the snapshot, optionally confirms with the user, and then continues
 
    Execute:
    Claude: `/opsx:new`
-   Codex: `@opsx-new`
+   Codex: `$opsx-new`
 
    Use the enriched snapshot as input.
 

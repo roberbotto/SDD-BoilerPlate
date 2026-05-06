@@ -8,7 +8,7 @@ tags: [workflow, archive, experimental]
 Archive a completed change in the experimental workflow.
 
 Legacy Claude: `/opsx:archive`
-Codex: `@opsx-archive`
+Codex: `$opsx-archive`
 
 **Input**: Optionally specify a change name after `/opsx:archive` (e.g., `/opsx:archive add-auth`). If omitted, check if it can be inferred from conversation context. If vague or ambiguous you MUST prompt for available changes.
 
@@ -67,7 +67,7 @@ Codex: `@opsx-archive`
 5. **Update documentation (required)**
 
    Claude: `/ai-specs:update-docs` before archiving.
-   Codex: `@ai-specs-update-docs` before archiving.
+   Codex: `$ai-specs-update-docs` before archiving.
 
    **Blocking rule (API):**
    If the change introduced or modified APIs, `ai-specs/specs/api-spec.yml` MUST be updated.

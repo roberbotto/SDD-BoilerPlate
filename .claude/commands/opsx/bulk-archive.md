@@ -8,7 +8,7 @@ tags: [workflow, archive, experimental, bulk]
 Archive multiple completed changes in a single operation.
 
 Legacy Claude: `/opsx:bulk-archive`
-Codex: `@opsx-bulk-archive`
+Codex: `$opsx-bulk-archive`
 
 This skill allows you to batch-archive changes, handling spec conflicts intelligently by checking the codebase to determine what's actually implemented.
 

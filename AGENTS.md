@@ -19,9 +19,17 @@ Until the migration is completed, the legacy command definitions under `.claude/
 Both surfaces coexist:
 
 - Claude Code uses `/opsx:*` and `/ai-specs:*`
-- Codex uses the matching skills, typically invoked as `@opsx-*` and `@ai-specs-*`
+- Codex uses the matching skills, typically invoked as `$opsx-*` and `$ai-specs-*`
 
 If a user asks to run one of those workflows from Codex, use the skills under `.agents/skills/`, and follow the corresponding `.claude` command file as the source of truth.
+
+The Codex adaptation is therefore packaged as local skills plus repository
+instructions, not as duplicated workflow definitions.
+
+For reuse in another repository, keep `AGENTS.md`, `.agents/skills/`, and
+`.claude/commands/` together. Copying only `AGENTS.md` and `.agents/skills/`
+is insufficient in the current design because the skills route back to
+`.claude/commands/`.
 
 ## Codex compatibility rules
 

@@ -8,7 +8,7 @@ tags: [workflow, explore, experimental, thinking]
 Enter explore mode. Think deeply. Visualize freely. Follow the conversation wherever it goes.
 
 Legacy Claude: `/opsx:explore`
-Codex: `@opsx-explore`
+Codex: `$opsx-explore`
 
 **IMPORTANT: Explore mode is for thinking, not implementing.** You may read files, search code, and investigate the codebase, but you must NEVER write code or implement features. If the user asks you to implement something, remind them to exit explore mode first (e.g., start a change with `/opsx:new` or `/opsx:ff`). You MAY create OpenSpec artifacts (proposals, designs, specs) if the user asks—that's capturing thinking, not implementing.
 
@@ -156,7 +156,7 @@ If the user mentions a change or you detect one is relevant:
 
 There's no required ending. Discovery might:
 
-- **Flow into action**: "Ready to start? Claude: `/opsx:new` or `/opsx:ff`. Codex: `@opsx-new` or `@opsx-ff`."
+- **Flow into action**: "Ready to start? Claude: `/opsx:new` or `/opsx:ff`. Codex: `$opsx-new` or `$opsx-ff`."
 - **Result in artifact updates**: "Updated design.md with these decisions"
 - **Just provide clarity**: User has what they need, moves on
 - **Continue later**: "We can pick this up anytime"

@@ -8,7 +8,7 @@ tags: [workflow, artifacts, experimental, figma, mcp]
 Implement tasks from an OpenSpec change.
 
 Legacy Claude: `/opsx:apply`
-Codex: `@opsx-apply`
+Codex: `$opsx-apply`
 
 **Input**: Optionally specify a change name (e.g., `/opsx:apply add-auth`). If omitted, check if it can be inferred from conversation context. If vague or ambiguous you MUST prompt for available changes.
 
@@ -363,7 +363,7 @@ Working on task 3/7: <task description>
 - [x] Task 2
 ...
 
-All tasks complete! Claude: archive with `/opsx:archive`. Codex: archive with `@opsx-archive`.
+All tasks complete! Claude: archive with `/opsx:archive`. Codex: archive with `$opsx-archive`.
 ```
 
 ## Output On Pause (Issue Encountered)
