@@ -1,16 +1,7 @@
 # Codex Installation Guide
 
-This repository ships with a local Codex plugin and a repository-level `AGENTS.md`.
-
-The plugin is stored at:
-
-- `plugins/codex-sdd-governance/`
-
-The repository marketplace file is stored at:
-
-- `.agents/plugins/marketplace.json`
-
-These locations follow the official Codex local-plugin convention for repository-scoped plugins.
+This repository ships with a repository-level `AGENTS.md` and repo-local
+skills under `.agents/skills/`.
 
 ## What You Get
 
@@ -18,32 +9,25 @@ After installation, Codex can load:
 
 - repository instructions from `AGENTS.md`
 - repo-local skills from `.agents/skills/`
-- the local plugin `codex-sdd-governance`
 - workflow skills such as `opsx-new`, `opsx-apply`, `opsx-verify`, `ai-specs-init-brownfield`, and `ai-specs-update-docs`
 
 The legacy Claude commands remain available in `.claude/commands/` and are not removed.
 
 ## Prerequisites
 
-- A recent Codex build with plugin support
+- A recent Codex build
 - This repository checked out locally
 - A restartable Codex surface: App, CLI session, or IDE extension session
 
 ## Repository-Local Installation
 
-No file copying is required if you use this repository as the plugin host.
+No file copying is required if you use this repository directly.
 
 1. Open the repository root.
 2. Confirm these files exist:
    - `AGENTS.md`
    - `.agents/skills/`
-   - `.agents/plugins/marketplace.json`
-   - `plugins/codex-sdd-governance/.codex-plugin/plugin.json`
-3. Restart Codex so it reloads the repository marketplace and plugin definitions.
-
-Official reference:
-
-- Codex local plugin installation uses `$REPO_ROOT/.agents/plugins/marketplace.json` and `$REPO_ROOT/plugins/` for repository-local plugins.
+3. Restart Codex so it reloads the repository instructions and skills.
 
 ## Command Mapping
 
@@ -57,9 +41,6 @@ Use the surface that matches the runtime you are in:
 | Codex | Skills in the composer | `@ai-specs-init-brownfield` |
 
 The workflow logic stays the same; only the operator surface changes.
-
-If a Codex surface does not pick up the plugin marketplace immediately, the
-`.agents/skills/` mirror is the primary discovery path to rely on.
 
 ## Codex App
 
@@ -102,7 +83,7 @@ Or:
 Use the @ai-specs-update-docs skill after these API changes
 ```
 
-If you changed plugin files and the update does not appear, restart the session.
+If you changed skill files and the update does not appear, restart the session.
 
 ## Codex IDE Extension
 
@@ -132,25 +113,12 @@ Use one of these quick checks:
 
 ## Troubleshooting
 
-### The plugin does not appear
-
-- Confirm the repository root contains `.agents/plugins/marketplace.json`.
-- Confirm the plugin manifest exists at `plugins/codex-sdd-governance/.codex-plugin/plugin.json`.
-- Restart the Codex surface completely.
-
-### The instructions load but the skills do not
-
-- Confirm the plugin path in `.agents/plugins/marketplace.json` is exactly `./plugins/codex-sdd-governance`.
-- Confirm the skill files exist under `plugins/codex-sdd-governance/skills/`.
-- Restart Codex after editing plugin or skill files.
-
 ### Codex still follows old workflow wording
 
 - That is expected in some places. The `.claude/commands/` files are still the canonical workflow definitions while this fork completes the interface migration to Codex.
 
 ## Official References
 
-- Plugin installation and repo marketplace layout: `https://developers.openai.com/codex/plugins/build`
 - Repository instruction loading with `AGENTS.md`: `https://developers.openai.com/codex/guides/agents-md`
 - Skill discovery and repository skill locations: `https://developers.openai.com/codex/skills`
 - Codex app commands and skill invocation in the composer: `https://developers.openai.com/codex/app/commands`

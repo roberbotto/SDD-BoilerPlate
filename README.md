@@ -54,7 +54,7 @@ No direct coding outside this flow.
 # 🏗 Project Architecture
 
 - `AGENTS.md` → Codex repository-level operating instructions
-- `plugins/codex-sdd-governance/` → Codex plugin that exposes bridge skills for this workflow
+- `.agents/skills/` → Codex skills for this workflow
 - `.claude/commands/opsx/` → OpenSpecs workflow commands
 - `.claude/commands/ai-specs/` → Governance & standards commands
 - `ai-specs/` → Specs, templates, standards, docs
@@ -76,8 +76,7 @@ Codex consumes them through:
 
 - `AGENTS.md` for repository-wide persistent instructions
 - repo-local skills in `.agents/skills/`
-- Codex skills bundled in `plugins/codex-sdd-governance/`
-- Native Codex MCP, plugins, and apps where relevant
+- Native Codex apps, CLI, and IDE surfaces where relevant
 
 This avoids duplicating the workflow logic in multiple formats.
 
@@ -90,7 +89,7 @@ For this reason, the fork uses:
 
 - **Skills** for workflow entrypoints
 - **AGENTS.md** for always-on repository rules
-- **Plugins** for portable packaging across Codex surfaces
+- **Repo-local skills** for portable packaging across Codex surfaces
 
 This makes the workflow portable across:
 
@@ -100,7 +99,7 @@ This makes the workflow portable across:
 
 ## Codex Entry Points
 
-The local plugin provides:
+The repository provides:
 
 - Two router skills:
   - `opsx-workflow`
@@ -260,11 +259,7 @@ Templates prevent:
 
     Codex will load `AGENTS.md` automatically at the repository root.
 
-    If you want the bridge skills available in Codex, this repository already
-    includes the official local plugin layout:
-
-    - `.agents/plugins/marketplace.json`
-    - `plugins/codex-sdd-governance/`
+    The skill set is already exposed under `.agents/skills/`.
 
     Installation guide:
 

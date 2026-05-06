@@ -21,7 +21,7 @@ Both surfaces coexist:
 - Claude Code uses `/opsx:*` and `/ai-specs:*`
 - Codex uses the matching skills, typically invoked as `@opsx-*` and `@ai-specs-*`
 
-If a user asks to run one of those workflows from Codex, use the skills under `.agents/skills/` or the Codex bridge skills from `plugins/codex-sdd-governance/skills/`, and follow the corresponding `.claude` command file as the source of truth.
+If a user asks to run one of those workflows from Codex, use the skills under `.agents/skills/`, and follow the corresponding `.claude` command file as the source of truth.
 
 ## Codex compatibility rules
 
@@ -49,7 +49,6 @@ This fork is migrating the operator surface from Claude Code to Codex without lo
 
 - `AGENTS.md`
 - Codex skills
-- Codex plugins
 - Codex MCP/app integrations
 
 Do not collapse the governance model into generic coding assistance.
