@@ -1,383 +1,234 @@
-# 🚀 BOOTSTRAP GUIDE
+# Bootstrap Guide
 
-## Using This Repository
+## Purpose
 
-This repository is designed to be reused as a **governed development
-starter kit** — for both **new (greenfield)** and **existing (brownfield)** projects.
+This repository is a governed development starter kit for new and existing
+projects. It uses OpenSpecs plus native Codex skills to enforce a
+Spec-Driven Development workflow.
 
 It provides:
 
--   OpenSpecs workflow (`/opsx:*`)
--   AI governance layer (`/ai-specs:*`)
--   Codex bridge layer through `AGENTS.md` and `.agents/skills/`
--   Deterministic standards system
--   Documentation enforcement
--   Spec-Driven Development (SDD)
+- OpenSpecs workflow state under `openspec/`
+- Codex repository instructions in `AGENTS.md`
+- Native Codex skills under `.agents/skills/`
+- Standards and documentation rules under `ai-specs/specs/`
+- Bootstrap checks in `scripts/bootstrap.sh`
 
-This guide explains how to bootstrap a new project using this template.
+## 1. Create a New Project
 
-------------------------------------------------------------------------
+Recommended:
 
-# 1. Create a New Project from This Template
+1. Mark this repository as a GitHub template.
+2. Create a new repository from the template.
+3. Open the new repository in Codex.
 
-Option A (Recommended): - Mark this repository as a GitHub Template. -
-Click **"Use this template"** to create a new repo.
+Alternative:
 
-Option B: - Clone this repository. - Remove its `.git` folder. -
-Initialize a new Git repository.
+1. Clone this repository.
+2. Remove its `.git` folder.
+3. Initialize a new Git repository.
 
-------------------------------------------------------------------------
-
-# 2. Clean Project-Specific Content
+## 2. Clean Project-Specific Content
 
 Keep:
 
--   `.claude/`
--   `.agents/skills/`
--   `ai-specs/`
--   `openspec/`
--   `AGENTS.md`
--   `CLAUDE.md`
--   `.gitignore`
--   `README.md`
--   `BOOTSTRAP.md`
+- `.agents/skills/`
+- `ai-specs/`
+- `openspec/`
+- `AGENTS.md`
+- `.gitignore`
+- `README.md`
+- `BOOTSTRAP.md`
+- `docs/`
+- `scripts/`
 
-Remove (if present):
+Remove or replace:
 
--   Old project source code
--   Previous domain-specific models
--   Old CI config (if not reusable)
--   Example APIs or dummy data
+- Old product source code
+- Previous domain-specific models
+- Old CI config that does not apply
+- Example APIs or dummy data
 
 The governance and workflow system must remain intact.
 
-For Codex reuse, `AGENTS.md` and `.agents/skills/` are the local Codex
-entrypoints, and `.claude/commands/` remains the canonical workflow source
-they depend on.
+## 3. Do Not Reinitialize OpenSpec
 
-# ⚠️ IMPORTANT — DO NOT RUN `openspec init`
+This repository is already initialized.
 
-This repository is **already initialized**.
-
-Running:
+Do not run:
 
 ```bash
 openspec init
 ```
 
-inside this project may overwrite:
+Reinitializing OpenSpec can overwrite curated workflow structure and break the
+governed lifecycle.
 
-Custom /opsx:* commands
-Custom /ai-specs:* commands
+## 4. Minimum Requirements
 
-The curated OpenSpec structure
+Install:
 
-If you do this, commands may stop working.
+- Git
+- Node.js, if your OpenSpec installation uses npm or pnpm
+- OpenSpec CLI
+- Codex App, Codex CLI, or Codex IDE extension
 
-In this repository, NEVER run openspec init.
+Optional dependencies depend on the project stack you adopt.
 
-------------------------------------------------------------------------
-
-# 3. Minimum Requirements (New Machine)
-
-Install the following:
-
-Git
-
-Node.js (if OpenSpec is installed via npm/pnpm)
-
-(Optional) Python, if required by your backend stack
-
-VS Code
-
-The Claude Code VS Code extension (Anthropic)
-
-Codex App, Codex CLI, or the Codex IDE extension if you want to use the
-Codex operator surface
-
-# 4. Setup Steps
+## 5. Setup Steps
 
 Clone the repository:
 
+```bash
 git clone <YOUR_REPO>
 cd <YOUR_REPO>
+```
 
 Run the bootstrap script:
 
+```bash
 bash scripts/bootstrap.sh
+```
 
-The script will:
+The script verifies:
 
-Verify you are in the correct project root
+- You are in the repository root
+- `AGENTS.md` exists
+- `.agents/skills/` exists and contains workflow skills
+- `openspec/` and `ai-specs/` exist
+- OpenSpec CLI availability
+- Codex CLI availability, when installed
 
-Verify custom Claude commands exist
-
-Check if OpenSpec CLI is installed
-
-Warn if openspec init was executed accidentally
-
-Provide corrective guidance if something is missing
-
-If you are adopting the Codex operator surface in another repository, keep
-`AGENTS.md`, `.agents/skills/`, and `.claude/commands/` together.
-
-# 5. First-Time Project Usage
-
-This is the actual minimal workflow.
-
-Some commands exist but are not required in every scenario.
-
-# 6. Initialize Standards (MANDATORY)
+## 6. Initialize Standards
 
 If these files do not exist:
 
--   `ai-specs/specs/backend-standards.mdc`
--   `ai-specs/specs/frontend-standards.mdc`
+- `ai-specs/specs/backend-standards.mdc`
+- `ai-specs/specs/frontend-standards.mdc`
 
-Choose the appropriate initialization command:
+choose one initialization workflow.
 
-## 6a. Greenfield (new project, no existing code)
-
-```bash
-/ai-specs:init-greenfield
-```
-
-Codex equivalent:
+For a new project:
 
 ```text
 $ai-specs-init-greenfield
 ```
 
-You will be prompted for:
-
--   Backend language & framework
--   Architecture pattern
--   Database & ORM
--   API style (REST / GraphQL)
--   Testing stack
--   Frontend framework
--   Tooling & CI strategy
-
-This generates deterministic, stack-specific standards.
-
-## 6b. Brownfield (existing codebase)
-
-```bash
-/ai-specs:init-brownfield
-```
-
-Codex equivalent:
+For an existing codebase:
 
 ```text
 $ai-specs-init-brownfield
 ```
 
-This command will:
+The brownfield workflow discovers the stack, normalizes technical standards,
+captures functional baseline specs, and leaves the project ready for
+incremental SDD changes.
 
-1. **Discover** — Auto-detect stack, architecture, and modules from existing code
-2. **Normalize** — Generate technical standards that reflect reality (`ai-specs/specs/*`)
-3. **Baseline** — Capture existing capabilities as functional specs (`openspec/specs/*`)
-4. **Prepare** — Leave the project ready for incremental SDD changes
+## 7. Create User Stories
 
-No source code is modified. Only documentation and spec files are generated.
+Use:
 
----
-
-Without this step, development is blocked by design.
-
-------------------------------------------------------------------------
-
-
-# 7. Create User Stories (If using Notion MCP)
-
-```bash
-/ai-specs:new-us
+```text
+$ai-specs-new-us
 ```
 
-Codex equivalent:
+or the aggregate user-story router:
 
 ```text
 $ai-specs-user-story
 ```
 
-This command internally calls:
+The governed story pipeline can create, enrich, and hand off user stories for
+implementation.
 
-/ai-specs:enrich-us
+## 8. Start Development
 
-Codex equivalent:
-
-`$ai-specs-user-story`
-
-to ensure the story follows SDD structure.
-
-Then the system ask you for POMode or Dev:
-
-# 8.1 Product Owner Mode (PO Mode)
-
-If working in refinement mode:
-
-Iterate on the draft
-
-When ready for implementation:
-
-```bash
-/ai-specs:handoff-us
-```
-
-Codex equivalent:
-
-```text
-$ai-specs-user-story
-```
-
-This validates and upgrades the story to implementation-ready 
-status.
-
-# OR
-
-# 8.2 Development Mode (Dev Mode)
-
-Once the User Story is implementation-ready:
-
-```bash
-/opsx:new
-```
-
-Codex equivalent:
+Create a new OpenSpecs change:
 
 ```text
 $opsx-new
 ```
 
-Then continue working on the change:
-
-```bash
-/opsx:continue
-```
-
-Codex equivalent:
+Create or continue required artifacts:
 
 ```text
 $opsx-continue
 ```
 
-# 9. Apply (When the 4 Artifacts Are Ready)
-
-When all required artifacts are completed:
-
-```bash
-/opsx:apply
-```
-
-Codex equivalent:
+Apply completed tasks:
 
 ```text
 $opsx-apply
 ```
 
-This step includes:
+Verify before archive:
 
-- Implementation
-- Validation
-- Verify execution (quality gate)
-
-# 10. Archive
-
-When everything passes validation:
-
-```bash
-/opsx:archive
+```text
+$opsx-verify
 ```
 
-# 11. Diagram
+Archive when complete:
 
-![SDD Workflow](/docs/workflow-diagram.png)
+```text
+$opsx-archive
+```
 
-Versión mermaid
+## 9. Workflow Diagram
+
 ```mermaid
 flowchart TD
-  A[Init Standards<br/>/ai-specs:init-greenfield] --> B{Using Notion MCP?}
-  B -- Yes --> C[/ai-specs:new-us<br/>(calls enrich-us)/]
-  B -- No --> D[Create US manually<br/>using .md in Draft folder]
-
-  C --> E{PO Mode or Dev Mode?}
-  D --> E
-
-  E -- PO Mode --> F[Refine draft]
-  F --> G[/ai-specs:handoff-us<br/>(implementation-ready)/]
-  G --> H[/opsx:new/]
-
-  E -- Dev Mode --> H[/opsx:new/]
-  H --> I[/opsx:continue/]
-
-  I --> J{Are 4 artifacts complete?}
-  J -- No --> I
-  J -- Yes --> K[/opsx:apply<br/>(includes verify)/]
-  K --> L{Verify OK?}
-  L -- No --> I
-  L -- Yes --> M[/opsx:archive/]
-
+  A[Initialize standards] --> B{Create user story?}
+  B -- Yes --> C[Create and enrich story]
+  B -- No --> D[Create change directly]
+  C --> E{Ready for implementation?}
+  E -- No --> C
+  E -- Yes --> F[Start OpenSpecs change]
+  D --> F
+  F --> G[Create artifacts]
+  G --> H{Artifacts complete?}
+  H -- No --> G
+  H -- Yes --> I[Apply implementation]
+  I --> J[Verify]
+  J --> K{Verification OK?}
+  K -- No --> G
+  K -- Yes --> L[Update docs and archive]
 ```
 
-# 12 Troubleshooting
-Claude commands not visible
+## 10. Troubleshooting
 
-If /opsx:* or /ai-specs:* commands are not detected:
+### Skills are not visible
 
-Make sure VS Code opened the project root (where .claude/ exists)
+- Confirm the repository root contains `AGENTS.md`.
+- Confirm `.agents/skills/` exists.
+- Restart the Codex session or app.
+- Open the workspace at the repository root.
 
-Ensure Workspace Trust is enabled
+### OpenSpec command fails
 
-Restart VS Code
+- Run `bash scripts/bootstrap.sh`.
+- Confirm the OpenSpec CLI is installed.
+- Confirm `openspec/` exists.
+- Do not run `openspec init` in this repository.
 
-Confirm you are using Claude Code, not Copilot Chat
+## 11. Documentation Rules
 
-Someone ran openspec init
+All technical documentation lives under:
 
-If commands stopped working after running openspec init:
-
-Run:
-
-bash scripts/bootstrap.sh
-
-Follow the repair instructions provided by the script.
-
-------------------------------------------------------------------------
-
-# 13. Documentation Rules
-
-All documentation lives under:
-
+```text
 ai-specs/specs/
+```
 
 Templates live under:
 
+```text
 ai-specs/specs/templates/
+```
 
-Templates define structure only. Never copy template example content
-verbatim.
+Documentation is enforced before governed archive and commit workflows.
 
-Documentation is enforced automatically during:
+## Final Principle
 
-/opsx:archive
-
-------------------------------------------------------------------------
-
-# 14. Optional Hardening
-
-For stricter governance, consider:
-
--   Enforcing non-empty standards validation
--   Adding CI validation for api-spec.yml changes
--   Requiring archive before merge
--   Disallowing direct commits to main
-
-------------------------------------------------------------------------
-
-# Final Principle
-
-This repository is not a code scaffold.
-
-It is a governed development system.
+This repository is not a product scaffold. It is a governed development
+system.
 
 Standards first. Specs first. Code second.

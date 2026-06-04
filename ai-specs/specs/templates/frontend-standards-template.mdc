@@ -178,7 +178,7 @@ alwaysApply: true
 
 ### Incremental Modernization
 
-[Document how legacy patterns are replaced over time without destabilizing the product.]
+[Document how outdated patterns are replaced over time without destabilizing the product.]
 
 ### Deprecation Rules
 

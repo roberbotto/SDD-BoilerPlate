@@ -12,8 +12,8 @@ This repository is a governed Spec-Driven Development framework. Treat it as wor
 ## Canonical workflow sources
 
 For Codex, the native workflow definitions live under `.agents/skills/`.
-These skills are self-contained and do not require legacy command files at
-runtime.
+These skills are self-contained and do not require command files from another
+operator surface at runtime.
 
 - `opsx:*` workflows are executed through the matching `$opsx-*` skills.
 - `ai-specs:*` workflows are executed through the matching `$ai-specs-*` skills.
@@ -33,7 +33,7 @@ sufficient for Codex workflow execution.
 - Ask the user directly in a concise way when a workflow requires confirmation or selection.
 - Use plan tracking only when it adds operational value.
 - Use Codex MCP/apps usage for external integrations.
-- Legacy compatibility files may exist, but Codex workflows must not depend on them.
+- Codex workflows must depend only on repository-native Codex skills.
 
 ## Documentation rules
 

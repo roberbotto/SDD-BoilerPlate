@@ -1,58 +1,53 @@
 # Codex Installation Guide
 
-This repository ships with a repository-level `AGENTS.md` and repo-local
-skills under `.agents/skills/`.
+This repository ships with native Codex workflow support:
 
-Those Codex-facing artifacts bridge back to the canonical workflow
-documents under `.claude/commands/`.
+- `AGENTS.md` for repository instructions
+- `.agents/skills/` for workflow skills
+- `ai-specs/` for standards and documentation rules
+- `openspec/` for change and capability specs
+
+The skills are self-contained. No external command surface is required.
 
 ## What You Get
 
-After installation, Codex can load:
+After opening the repository in Codex, Codex can load:
 
 - repository instructions from `AGENTS.md`
 - repo-local skills from `.agents/skills/`
-- workflow skills such as `opsx-new`, `opsx-apply`, `opsx-verify`, `ai-specs-init-brownfield`, and `ai-specs-update-docs`
-
-The legacy Claude commands remain available in `.claude/commands/` and are not removed.
+- workflows such as `$opsx-new`, `$opsx-apply`, `$opsx-verify`,
+  `$ai-specs-init-brownfield`, and `$ai-specs-update-docs`
 
 ## Packaging Model
 
-The Codex adaptation is implemented through:
+For Codex reuse in another repository, copy:
 
 - `AGENTS.md`
 - `.agents/skills/`
+- `ai-specs/`
+- `openspec/`
+- supporting documentation and scripts as needed
 
-These are the files Codex loads directly.
-
-However, the skills do not duplicate the workflow logic. They route Codex to
-the canonical command documents under `.claude/commands/`.
-
-If you want to reuse this adaptation in another repository, copy at least:
-
-- `AGENTS.md`
-- `.agents/skills/`
-- `.claude/commands/`
-
-Copying only `AGENTS.md` and `.agents/skills/` is not enough with the
-current design, because the skills reference `.claude/commands/` as the
-source of truth.
+The executable workflow definitions live in `.agents/skills/`.
 
 ## Prerequisites
 
 - A recent Codex build
 - This repository checked out locally
-- A restartable Codex surface: App, CLI session, or IDE extension session
+- A restartable Codex surface: App, CLI, or IDE extension
+- OpenSpec CLI installed for workflows that execute OpenSpec commands
 
 ## Repository-Local Installation
 
 No file copying is required if you use this repository directly.
 
 1. Open the repository root.
-2. Confirm these files exist:
+2. Confirm these paths exist:
    - `AGENTS.md`
    - `.agents/skills/`
-3. Restart Codex so it reloads the repository instructions and skills.
+   - `openspec/`
+   - `ai-specs/`
+3. Restart Codex so it reloads repository instructions and skills.
 
 ## Reusing in Another Repository
 
@@ -60,110 +55,82 @@ If you are transplanting the Codex operator layer into another project:
 
 1. Copy `AGENTS.md` into the target repository root.
 2. Copy `.agents/skills/` into the target repository.
-3. Copy `.claude/commands/` into the target repository.
-4. Restart Codex in that repository so it reloads the instructions and skills.
+3. Copy `ai-specs/` and `openspec/` if you want the full governed SDD system.
+4. Restart Codex in that repository.
 
-The bridge is portable, but the skills require the canonical `.claude`
-workflow documents to remain available.
+## Skill Invocation
 
-## Command Mapping
-
-Use the surface that matches the runtime you are in:
-
-| Surface | Invocation style | Example |
-| --- | --- | --- |
-| Claude Code | Legacy slash commands | `/opsx:new` |
-| Codex | Skills in the composer | `$opsx-new` |
-| Claude Code | Legacy slash commands | `/ai-specs:init-brownfield` |
-| Codex | Skills in the composer | `$ai-specs-init-brownfield` |
-
-The workflow logic stays the same; only the operator surface changes.
-
-## Codex App
-
-1. Quit and reopen the Codex app after pulling the latest repository changes.
-2. Open this repository in the app.
-3. Start a new thread in the repository.
-4. Invoke a skill explicitly from the composer, for example:
+Invoke skills directly in Codex:
 
 ```text
 $opsx-new for add-auth
 ```
 
-Or:
-
 ```text
 $ai-specs-init-brownfield on this codebase
 ```
 
-Or:
-
 ```text
-Use the $ai-specs-user-story skill to enrich this story
+Use $ai-specs-user-story to enrich this story
 ```
 
-If you are following the legacy Claude docs, the equivalent command strings are `/opsx:new` and `/ai-specs:init-brownfield`.
+## Codex App
+
+1. Quit and reopen the Codex app after pulling repository changes.
+2. Open this repository in the app.
+3. Start a new thread in the repository.
+4. Invoke a skill explicitly from the composer.
 
 ## Codex CLI
 
-1. Close any existing interactive Codex session in this repository.
-2. Start a new session from the repository root:
+Start a new session from the repository root:
 
 ```bash
 cd /path/to/this/repository
 codex
 ```
 
-3. Ask Codex to use one of the installed skills by name, for example:
+Then ask Codex to use one of the installed skills:
 
 ```text
-Use the $opsx-new skill for add-auth
+Use $opsx-apply for the active change
 ```
 
-Or:
-
-```text
-Use the $ai-specs-update-docs skill after these API changes
-```
-
-If you changed skill files and the update does not appear, restart the session.
+If skill changes do not appear, restart the session.
 
 ## Codex IDE Extension
 
 1. Close the current Codex chat session for this workspace.
 2. Reopen the workspace rooted at this repository.
 3. Start a new Codex chat.
-4. Invoke a repository workflow by skill name, for example:
-
-```text
-Use the $opsx-apply skill for the active change
-```
-
-Or:
-
-```text
-Use the $ai-specs-user-story skill to enrich this story
-```
+4. Invoke a repository workflow by skill name.
 
 ## Verification
 
-Use one of these quick checks:
+Use these checks:
 
 - Ask Codex which instruction files it loaded. It should report `AGENTS.md`.
-- Ask Codex to use `$opsx-new`, `$ai-specs-init-brownfield`, or `$ai-specs-user-story`.
-- In the Codex app, type `$` in the composer and verify that the relevant skills are available.
-- In Claude, confirm the legacy `/opsx:new` and `/ai-specs:init-brownfield` commands are still present.
+- Ask Codex to use `$opsx-new`, `$ai-specs-init-brownfield`, or
+  `$ai-specs-user-story`.
+- Type `$` in the Codex composer and verify that repository skills are
+  available.
+- Run `bash scripts/bootstrap.sh` from the repository root.
 
 ## Troubleshooting
 
-### Codex still follows old workflow wording
+### Skills are not visible
 
-- That is expected in some places. The `.claude/commands/` files are still the canonical workflow definitions while this fork completes the interface migration to Codex.
+- Restart the Codex surface.
+- Confirm the repository root contains `AGENTS.md`.
+- Confirm `.agents/skills/` exists and contains `SKILL.md` files.
+- Confirm the workspace is opened at the repository root.
 
-### Skills appear but the workflow does not behave correctly
+### Workflow commands fail
 
-- Confirm that `.claude/commands/` is present in the repository.
-- The Codex skills under `.agents/skills/` depend on those files as the canonical source.
+- Confirm OpenSpec CLI is installed.
+- Confirm `openspec/` exists.
+- Run `bash scripts/bootstrap.sh`.
+- Do not run `openspec init` inside this repository.
 
 ## Official References
 

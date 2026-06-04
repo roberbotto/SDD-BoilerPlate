@@ -1,349 +1,196 @@
-# 🚀 OpenSpecs SDD System
+# OpenSpecs SDD System
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
+## What This Is
 
-### Spec-Driven Development + AI Governance Layer
+This repository is a governed Spec-Driven Development framework for Codex.
+It is workflow infrastructure, not an application scaffold.
 
-This repository implements a customized OpenSpecs workflow enhanced with
-an AI governance layer.
+It provides:
 
-It enforces:
+- OpenSpecs workflow orchestration
+- Native Codex skills under `.agents/skills/`
+- Repository operating instructions in `AGENTS.md`
+- Technical standards under `ai-specs/specs/`
+- Deterministic documentation templates
+- Guardrails for verification, documentation, and archive
 
--   Explicit technical standards
--   Deterministic documentation structure
--   Controlled change lifecycle
--   Spec‑Driven Development (SDD)
--   AI‑governed architectural discipline
+The goal is to reduce architectural drift and documentation entropy by making
+specs the source of truth.
 
-------------------------------------------------------------------------
+## Development Model
 
-# 🧠 What Is This?
+Specifications are the source of truth. Code is an implementation artifact.
 
-This is not just an OpenSpecs setup.
+The expected lifecycle is:
 
-It is a governed development environment composed of:
+1. Define or update specs.
+2. Create or continue a governed change.
+3. Apply the change.
+4. Verify artifacts and tasks.
+5. Update affected technical documentation.
+6. Archive the completed change.
 
--   OpenSpecs (workflow orchestration)
--   Custom Claude commands
--   Explicit backend & frontend standards
--   Documentation enforcement rules
--   Structured templates
--   Blocking policies for incomplete work
+Do not bypass the workflow for product changes.
 
-The goal is to eliminate architectural drift and documentation entropy.
+## Project Architecture
 
-------------------------------------------------------------------------
+- `AGENTS.md` - Codex repository-level operating instructions
+- `.agents/skills/` - native Codex workflow skills
+- `ai-specs/` - standards, templates, and technical documentation
+- `openspec/` - OpenSpecs workflow state and capability specs
+- `docs/` - repository-level usage documentation
+- `scripts/` - validation and bootstrap helpers
 
-# 📐 Development Model: Spec‑Driven Development (SDD)
+## Codex Operating Model
 
-Specifications are the source of truth.\
-Code is an implementation artifact.
+Codex workflows are native skills. They are self-contained and do not require
+any external command surface.
 
-The order of operations:
+Core router skills:
 
-1.  Define or update specs
-2.  Apply change
-3.  Verify artifacts & tasks
-4.  Update documentation
-5.  Archive change
+- `$opsx-workflow`
+- `$ai-specs-governance`
 
-No direct coding outside this flow.
+OpenSpecs workflow skills:
 
-------------------------------------------------------------------------
+- `$opsx-new`
+- `$opsx-ff`
+- `$opsx-continue`
+- `$opsx-apply`
+- `$opsx-verify`
+- `$opsx-sync`
+- `$opsx-archive`
+- `$opsx-bulk-archive`
+- `$opsx-explore`
+- `$opsx-onboard`
 
-# 🏗 Project Architecture
+AI Specs governance skills:
 
-- `AGENTS.md` → Codex repository-level operating instructions
-- `.agents/skills/` → Codex skills for this workflow
-- `.claude/commands/opsx/` → OpenSpecs workflow commands
-- `.claude/commands/ai-specs/` → Governance & standards commands
-- `ai-specs/` → Specs, templates, standards, docs
-- `openspec/` → OpenSpecs CLI workflow
+- `$ai-specs-init-greenfield`
+- `$ai-specs-init-brownfield`
+- `$ai-specs-new-us`
+- `$ai-specs-enrich-us`
+- `$ai-specs-handoff-us`
+- `$ai-specs-update-docs`
+- `$ai-specs-commit`
+- `$ai-specs-explain`
+- `$ai-specs-meta-prompt`
+- `$ai-specs-user-story`
 
-------------------------------------------------------------------------
+Use the granular skill when the workflow is clear. Use the router skill when
+the user intent needs routing.
 
-# 🤖 Codex Operating Model
+## Command Domains
 
-This fork adds a Codex-native operator layer without removing the existing
-workflow definitions.
+The workflow namespaces remain as logical identifiers:
 
-## Design Principle
+- `opsx:*` - OpenSpecs change lifecycle workflows
+- `ai-specs:*` - standards, documentation, user story, and commit governance
 
-The legacy `.claude/commands/` files remain the **canonical workflow
-documents**.
+In Codex, invoke them through skills, for example:
 
-Codex consumes them through:
+- `$opsx-new for add-auth`
+- `$opsx-apply for the active change`
+- `$opsx-archive after verification`
+- `$ai-specs-init-brownfield on this codebase`
+- `$ai-specs-update-docs after these API changes`
+- `$ai-specs-user-story to create and enrich a story`
 
-- `AGENTS.md` for repository-wide persistent instructions
-- repo-local skills in `.agents/skills/`
-- Native Codex apps, CLI, and IDE surfaces where relevant
+## Standards
 
-This avoids duplicating the workflow logic in multiple formats.
+Authoritative technical standards live under:
 
-## Portability Across Projects
-
-The Codex adaptation in this fork is packaged as a local operator layer:
-
-- `AGENTS.md`
-- `.agents/skills/`
-
-Those two artifacts are the Codex-facing entrypoints, but they are not
-standalone workflow definitions.
-
-The skills under `.agents/skills/` route Codex back to the canonical
-workflow documents stored under `.claude/commands/`.
-
-If you want to reuse this Codex adaptation in another repository, copy at
-least:
-
-- `AGENTS.md`
-- `.agents/skills/`
-- `.claude/commands/`
-
-If you omit `.claude/commands/`, the Codex skills remain present but lose
-their canonical workflow source.
-
-## Why Skills Instead of Custom Slash Commands
-
-Codex does not share Claude Code's repository-local slash-command model
-across all surfaces.
-
-For this reason, the fork uses:
-
-- **Skills** for workflow entrypoints
-- **AGENTS.md** for always-on repository rules
-- **Repo-local skills** for portable packaging across Codex surfaces
-
-This makes the workflow portable across:
-
-- Codex desktop app
-- Codex CLI
-- Codex IDE extension
-
-## Codex Entry Points
-
-The repository provides:
-
-- Two router skills:
-  - `opsx-workflow`
-  - `ai-specs-governance`
-- Granular workflow skills:
-  - `opsx-new`
-  - `opsx-continue`
-  - `opsx-apply`
-  - `opsx-verify`
-  - `opsx-sync`
-  - `opsx-archive`
-  - `ai-specs-init-brownfield`
-  - `ai-specs-init-greenfield`
-  - `ai-specs-update-docs`
-  - `ai-specs-user-story`
-  - `ai-specs-commit`
-  - `ai-specs-explain`
-  - `ai-specs-meta-prompt`
-
-All of them route Codex to the matching file under `.claude/commands/` and
-preserve the original guardrails.
-
-For maximum compatibility across Codex surfaces, the same skills are also
-exposed directly under `.agents/skills/`.
-
-Both operator surfaces are supported:
-
-- Claude Code keeps using `/opsx:*` and `/ai-specs:*`
-- Codex uses the matching skills, invoked as `$opsx-*` and `$ai-specs-*`
-
-Examples:
-
-- "`$opsx-new` for `add-auth`"
-- "`$ai-specs-init-brownfield` on this codebase"
-- "`$opsx-apply` for the active change"
-- "`$ai-specs-update-docs` after these API changes"
-- "`$ai-specs-user-story` to create, enrich, or hand off a story"
-- "`$opsx-workflow` for `/opsx:ff`, `/opsx:bulk-archive`, or `/opsx:explore`"
-- "Claude users can keep using `/opsx:new` and `/ai-specs:init-brownfield`"
-
-------------------------------------------------------------------------
-
-# 🔄 Command Domains
-
-The workflow names are still organized by namespace.
-In Codex, treat them as logical workflow identifiers exposed through skills,
-not as repository-local slash commands.
-
-## 🔄 /opsx:\* --- OpenSpecs Workflow
-
-Lifecycle management commands:
-
--   /opsx:new --- Claude: start a new change | Codex: `$opsx-new`
--   /opsx:ff --- Claude: fast-forward creation of artifacts | Codex: `$opsx-workflow`
--   /opsx:apply --- Claude: implement change artifacts | Codex: `$opsx-apply`
--   /opsx:verify --- Claude: verify implementation vs artifacts | Codex: `$opsx-verify`
--   /opsx:sync --- Claude: sync delta specs into main specs | Codex: `$opsx-sync`
--   /opsx:continue --- Claude: continue experimental workflow | Codex: `$opsx-continue`
--   /opsx:archive --- Claude: archive completed change | Codex: `$opsx-archive`
--   /opsx:bulk-archive --- Claude: archive multiple changes | Codex: `$opsx-workflow`
--   /opsx:explore --- Claude: investigation mode (no implementation) | Codex: `$opsx-workflow`
--   /opsx:onboard --- Claude: guided onboarding through workflow | Codex: `$opsx-workflow`
-
-These commands manage the change lifecycle only.
-
-------------------------------------------------------------------------
-
-## 🧠 /ai-specs:\* --- Governance & Execution Layer
-
-These commands manage standards, documentation, planning, and execution.
-
--   /ai-specs:init-greenfield\
-    Claude: generate backend and frontend standards from templates using your tech stack.
-    Codex: `$ai-specs-init-greenfield`
-
--   /ai-specs:update-docs\
-    Claude: enforce documentation-standards.mdc (update API spec, data model, development guide).
-    Codex: `$ai-specs-update-docs`
-
--   /ai-specs:new-us\  
-    Claude: create a new structured user story aligned with SDD standards.
-    Codex: `$ai-specs-user-story`
-
--   /ai-specs:enrich-us\
-    Claude: improve and refine user stories/tickets for clarity and completeness.
-    Codex: `$ai-specs-user-story`
-
--   /ai-specs:handoff-us\
-    Claude: prepare a validated user story for implementation (technical-ready state).
-    Codex: `$ai-specs-user-story`
-
--   /ai-specs:commit\  
-    Claude: structured commit (and optional PR) workflow with governance checks.
-    Codex: `$ai-specs-commit`
-
--   /ai-specs:explain\
-    Claude: deep conceptual explanation mode.
-    Codex: `$ai-specs-explain`
-
--   /ai-specs:meta-prompt\
-    Claude: improve and structure prompts for better AI execution.
-    Codex: `$ai-specs-meta-prompt`
-
-------------------------------------------------------------------------
-
-# 📘 Standards
-
-All authoritative standards live under:
-
+```text
 ai-specs/specs/
+```
 
-Standards may initially be empty in greenfield setups.
+If standards do not exist yet, initialize them with:
 
-If backend-standards.mdc or frontend-standards.mdc do not exist, run:
+```text
+$ai-specs-init-greenfield
+```
 
-Claude: `/ai-specs:init-greenfield`
-Codex: `$ai-specs-init-greenfield`
+For an existing system, use:
 
-This generates deterministic, stack‑specific standards from templates.
+```text
+$ai-specs-init-brownfield
+```
 
-------------------------------------------------------------------------
-
-# 📄 Templates
+## Templates
 
 Templates live under:
 
+```text
 ai-specs/specs/templates/
+```
 
-Templates define structure only (headings and section order).\
-They are never copied verbatim.
+Templates define structure only. Generated standards must reflect the actual
+project, not generic sample content.
 
-This fork intentionally keeps the templates **domain-neutral** and
-**stack-neutral**. The generated standards must reflect the actual project,
-not the previous sample application that originally seeded this repository.
+## Quick Start
 
-Templates prevent:
+1. Clone the repository.
 
--   Documentation drift
--   Structural inconsistency
--   AI output randomness
+```bash
+git clone <repo>
+cd <repo>
+```
 
-------------------------------------------------------------------------
+2. Open the repository in Codex.
 
-# ⚡ QuickStart (Greenfield Setup)
+Codex loads `AGENTS.md` from the repository root and discovers skills under
+`.agents/skills/`.
 
-1.  Clone the repository
+3. Run the bootstrap check.
 
-    git clone `<repo>`{=html} cd `<repo>`{=html}
+```bash
+bash scripts/bootstrap.sh
+```
 
-2.  Open the repository in Codex
+4. Initialize standards.
 
-    Codex will load `AGENTS.md` automatically at the repository root.
+For a new project:
 
-    The skill set is already exposed under `.agents/skills/`.
+```text
+$ai-specs-init-greenfield
+```
 
-    Those skills still depend on `.claude/commands/`, which remains the
-    canonical workflow source.
+For an existing codebase:
 
-    Installation guide:
+```text
+$ai-specs-init-brownfield
+```
 
-    `docs/codex-installation.md`
+5. Start a governed change.
 
-3.  Initialize standards
+```text
+$opsx-new
+```
 
-    Claude: `/ai-specs:init-greenfield`
-    Codex: `$ai-specs-init-greenfield`
+Then continue through the lifecycle with `$opsx-continue`, `$opsx-apply`,
+`$opsx-verify`, and `$opsx-archive`.
 
-    Provide:
-
-    -   Backend stack
-    -   Database & ORM
-    -   API style
-    -   Testing stack
-    -   Frontend stack
-    -   Tooling & CI
-
-4.  Start a change
-
-    Claude: `/opsx:new`
-    Codex: `$opsx-new`
-
-Follow the lifecycle strictly.
-
-For Codex usage, invoke the equivalent workflow through the bridge skills and
-plain-language requests instead of relying on Claude-specific slash commands.
-
-If you transplant this Codex layer into another repository, copy
-`AGENTS.md`, `.agents/skills/`, and `.claude/commands/` together.
-
-------------------------------------------------------------------------
-
-# 🔁 Enhanced Archive Flow
+## Archive Flow
 
 Archive includes:
 
-1.  Artifact verification
-2.  Task verification
-3.  Spec sync validation
-4.  Documentation update
-5.  API blocking rule
-6.  Archive execution
+1. Artifact verification
+2. Task verification
+3. Spec sync validation
+4. Documentation update
+5. API blocking rule
+6. Archive execution
 
-This ensures no undocumented API changes and no architectural drift.
+This prevents undocumented API changes and unsynced capability specs.
 
-------------------------------------------------------------------------
+## Final Principle
 
-# 🎯 Final Principle
+Standards first. Specs first. Code second.
 
-Standards first.\
-Specs first.\
-Code second.
+## License
 
-This repository is a controlled development environment, not just a
-project scaffold.
-
-------------------------------------------------------------------------
-
-# 📜 License
-
-This project is distributed under the terms of the **MIT License**.
+This project is distributed under the terms of the MIT License.
 
 Copyright (c) 2026 Jonathan Castro Miguel.
 
-See the [LICENSE](./LICENSE) file for the full license text.
+See [LICENSE](./LICENSE) for details.
