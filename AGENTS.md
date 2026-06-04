@@ -11,34 +11,29 @@ This repository is a governed Spec-Driven Development framework. Treat it as wor
 
 ## Canonical workflow sources
 
-Until the migration is completed, the legacy command definitions under `.claude/commands/` remain the canonical workflow documents.
+For Codex, the native workflow definitions live under `.agents/skills/`.
+These skills are self-contained and do not require legacy command files at
+runtime.
 
-- `opsx:*` workflows live in `.claude/commands/opsx/*.md`
-- `ai-specs:*` workflows live in `.claude/commands/ai-specs/*.md`
+- `opsx:*` workflows are executed through the matching `$opsx-*` skills.
+- `ai-specs:*` workflows are executed through the matching `$ai-specs-*` skills.
 
-Both surfaces coexist:
+Use the native skills as the executable source of truth when operating from
+Codex. The aggregate router skills are:
 
-- Claude Code uses `/opsx:*` and `/ai-specs:*`
-- Codex uses the matching skills, typically invoked as `$opsx-*` and `$ai-specs-*`
+- `.agents/skills/opsx-workflow/SKILL.md`
+- `.agents/skills/ai-specs-governance/SKILL.md`
 
-If a user asks to run one of those workflows from Codex, use the skills under `.agents/skills/`, and follow the corresponding `.claude` command file as the source of truth.
-
-The Codex adaptation is therefore packaged as local skills plus repository
-instructions, not as duplicated workflow definitions.
-
-For reuse in another repository, keep `AGENTS.md`, `.agents/skills/`, and
-`.claude/commands/` together. Copying only `AGENTS.md` and `.agents/skills/`
-is insufficient in the current design because the skills route back to
-`.claude/commands/`.
+For reuse in another repository, copying `AGENTS.md` and `.agents/skills/` is
+sufficient for Codex workflow execution.
 
 ## Codex compatibility rules
 
-- In Codex App, CLI, and IDE, prefer skills plus `AGENTS.md` over product-specific custom slash commands.
-- Keep the legacy Claude command strings in docs and prompts when they are part of the workflow contract.
-- If a legacy workflow mentions `AskUserQuestion`, ask the user directly in a concise way when needed.
-- If a legacy workflow mentions `TodoWrite`, use plan tracking only when it adds value.
-- If a legacy workflow mentions Claude-specific MCP UX, translate it to Codex MCP/apps usage.
-- Keep `.claude/` intact unless the user explicitly asks to remove Claude compatibility.
+- In Codex App, CLI, and IDE, use skills plus `AGENTS.md` over product-specific custom slash commands.
+- Ask the user directly in a concise way when a workflow requires confirmation or selection.
+- Use plan tracking only when it adds operational value.
+- Use Codex MCP/apps usage for external integrations.
+- Legacy compatibility files may exist, but Codex workflows must not depend on them.
 
 ## Documentation rules
 
@@ -53,7 +48,7 @@ Key requirements:
 
 ## Fork objective
 
-This fork is migrating the operator surface from Claude Code to Codex without losing workflow coverage. Prefer additive Codex-native layers such as:
+This fork provides a native Codex operator surface without losing workflow coverage. Prefer Codex-native layers such as:
 
 - `AGENTS.md`
 - Codex skills

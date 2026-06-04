@@ -1,17 +1,18 @@
 ---
 name: ai-specs-meta-prompt
-description: Use when the user wants Codex to improve or restructure a prompt using this repository's governance style, equivalent to the legacy `ai-specs:meta-prompt` workflow.
+description: Native Codex workflow for `ai-specs:meta-prompt`. Run the ai-specs:meta-prompt workflow from Codex.
 ---
 
-# AI Specs Meta Prompt
+# AI-SPECS Meta Prompt
 
-Canonical source:
-- `.claude/commands/ai-specs/meta-prompt.md`
+This is a Codex-native skill. It is self-contained and does not require any legacy command files at runtime.
 
-Use this skill to rewrite prompts for clarity, structure, and execution quality.
+# Instructions
 
-## Rules
+Codex skill: `$ai-specs-meta-prompt`
 
-- Keep the rewritten prompt tightly aligned to the original objective.
-- Improve structure without broadening scope.
-- Prefer concise, operational prompt structure over verbose framing.
+You are an expert in prompt engineering.
+Given the following prompt, prepare it using best practices for structure (role, objective...) and format to achieve a precise and exhaustive result. Stick only to the requested objective by carefully analyzing what is asked in the original prompt
+
+# Original prompt:
+[The prompt that the user introduces in the command]

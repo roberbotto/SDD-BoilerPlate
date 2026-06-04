@@ -1,18 +1,12 @@
 ---
 name: ai-specs-update-docs
-description: Use when the user wants Codex to update project documentation according to the governance rules, equivalent to the legacy `ai-specs:update-docs` workflow.
+description: Native Codex workflow for `ai-specs:update-docs`. Run the ai-specs:update-docs workflow from Codex.
 ---
 
-# AI Specs Update Docs
+# AI-SPECS Update Docs
 
-Canonical source:
-- `.claude/commands/ai-specs/update-docs.md`
-- `ai-specs/specs/documentation-standards.mdc`
+This is a Codex-native skill. It is self-contained and does not require any legacy command files at runtime.
 
-Use this skill after code or spec changes that affect technical documentation.
+Use `ai-specs/specs/documentation-standards.mdc` to update whatever documentation is needed according to the changes made
 
-## Rules
-
-- Apply the documentation standards file as mandatory policy.
-- Create missing docs from templates when required.
-- Keep documentation updates in English unless the repository rule is explicitly changed.
+Codex skill: `$ai-specs-update-docs`
